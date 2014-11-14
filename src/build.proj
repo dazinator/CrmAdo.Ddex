@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project ToolsVersion="4.0"
+         DefaultTargets="ReleaseBuild"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <SolutionFile>CrmAdo.DdexProvider.sln</SolutionFile>
+    <VSIXVersion></VSIXVersion>
+  </PropertyGroup> 
+
+  <!--After Build - Release|AnyCPU.-->
+  <Target Name="ReleaseBuild" DependsOnTargets="GetVSIXVersionNumberFromAssembly;UpdateVSIXVersion;BuildSolution;">
+    <Message  Importance="high" Text="build proj --> BuildCrmAdo target.."/>
+  </Target> 
+
+  <!--Reads the assembly version number.-->
+  <Target Name="GetVSIXVersionNumberFromAssembly" Condition="$(VSIXVersion) == ''">
+    <!-- Read the assembly version number and use that for the package version number -->
+    <GetAssemblyIdentity AssemblyFiles="CrmAdo.Ddex\src\CrmAdo.Ddex\bin\Release\CrmAdo.DdexProvider.dll">
+      <Output TaskParameter="Assemblies" ItemName="OutputAssemblyInfo" />
+    </GetAssemblyIdentity>
+    <Message Text="Info: %(OutputAssemblyInfo.Version)" />
+    <PropertyGroup>
+      <AssemblyVersionNumber>%(OutputAssemblyInfo.Version)</AssemblyVersionNumber>
+      <!-- If a BuildVersionNumber is supplied we can append that as the last digit of the package version number -->
+      <VSIXVersion>$(AssemblyVersionNumber)</VSIXVersion>
+    </PropertyGroup>
+    <Message Text="VSIX Version Number from assembly: $(VSIXVersion)"/>
+  </Target>
+
+  <Target
+     Name="UpdateVSIXVersion"
+     Condition="$(VSIXVersion) != '' And $(VSIXVersion) != '*Undefined*'">
+
+    <Message Text= "Updating VSIX Version to $(VSIXVersion)" />
+
+    <XmlPoke
+        XmlInputPath="CrmAdo.Ddex\source.extension.vsixmanifest"
+        Query="/n:PackageManifest/n:Metadata/n:Identity/@Version"
+        Value="$(VSIXVersion)"
+        Namespaces="&lt;Namespace Prefix='n' Uri='http://schemas.microsoft.com/developer/vsx-schema/2011' Name='DoNotKnowWhatThisIsFor-ButItIsRequired' /&gt;">
+    </XmlPoke>
+  </Target>
+
+  <!--Builds the solution -->
+  <Target Name="BuildSolution">
+    <Message  Importance="high" Text="Building solution"/>
+    <ItemGroup>
+      <ProjectToBuild Include="$(SolutionFile)">
+        <Properties>Configuration=Release</Properties>
+      </ProjectToBuild>
+    </ItemGroup>
+
+    <MSBuild Projects="@(ProjectToBuild)"
+        Targets="Build">
+      <Output
+          TaskParameter="TargetOutputs"
+          ItemName="AssembliesBuiltByChildProjects" />
+    </MSBuild>
+  </Target>
+
+ 
+ 
+
+
+</Project>
