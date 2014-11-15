@@ -222,7 +222,15 @@
         <Part name="LogicalName" underlyingMember="LogicalName" />
       </Identifier>
       <Properties>
-        <Property name="IsPrimaryKey" isIdentifierPart="false" underlyingMember="IsPrimaryKey" />
+        <Property name="IsPrimaryKey" underlyingMember="IsPrimaryKey" />
+        <Property name="Name" underlyingMember="LogicalName" />
+        <Property name="Ordinal" underlyingMember="ColumnNumber" />
+        <!--<Property name="DataType" />-->
+        <!--<Property name="MaxLength" type="System.Int32" />
+        <Property name="Precision" type="System.Byte" />
+        <Property name="Scale" type="System.Int32" />
+        <Property name="IsNullable" />
+        <Property name="DefaultValue" />-->
       </Properties>
     </MappedType>
 

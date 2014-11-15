@@ -1,4 +1,7 @@
-﻿v1.4.0
+﻿v1.5.0
+Designer support added for 'New Query' and 'Show Data' as per https://github.com/dazinator/CrmAdo.Ddex/issues/5
+
+v1.4.0
 Added support for VS 2012.
 
 v1.3.1
