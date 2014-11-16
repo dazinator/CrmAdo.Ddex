@@ -286,7 +286,9 @@ if $(ConfigurationName) == Debug "$(SolutionDir)..\lib\GacUtil\GacUtil.exe" /u "
 if $(ConfigurationName) == Debug "$(SolutionDir)..\lib\GacUtil\GacUtil.exe" /i "$(ProjectDir)$(OutDir)SqlGeneration.dll"
 if $(ConfigurationName) == Debug "$(SolutionDir)..\lib\GacUtil\GacUtil.exe" /i "$(ProjectDir)$(OutDir)Microsoft.Xrm.Sdk.dll"
 if $(ConfigurationName) == Debug "$(SolutionDir)..\lib\GacUtil\GacUtil.exe" /i "$(ProjectDir)$(OutDir)Microsoft.Crm.Sdk.Proxy.dll"
-if $(ConfigurationName) == Debug xcopy /y /f /r $(ProjectDir)$(OutDir)Microsoft.Xrm.Client.dll "$(DevEnvDir)"
+if $(ConfigurationName) == Debug xcopy /y /f /r /d "$(ProjectDir)$(OutDir)Microsoft.Xrm.Client.dll" "$(DevEnvDir)"
+
+
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
