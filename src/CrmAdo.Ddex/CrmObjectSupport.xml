@@ -33,6 +33,15 @@
     <Property name="RequiredLevel"  />
     <Property name="SchemaName"  />
     <Property name="IsPrimaryKey" type="System.Boolean" />
+
+    <Property name="MaxLength" type="System.Int32" />
+    <Property name="NumericPrecision" type="System.Int32" />
+    <Property name="NumericScale" type="System.Int32" />
+    <Property name="IsNullable" type="System.Boolean" />   
+    <Property name="DefaultValue" type="System.Object" />
+    <Property name="DataType" type="System.String" />
+    <Property name="Ordinal" type="System.Int32" />
+
   </Define>
 
   <Define name="OptionSetAttributeProperties">
@@ -215,6 +224,45 @@
       </Properties>
     </MappedType>
 
+    <!--<MappedType name="TableColumn" underlyingType="Columns">
+      <Selection restrictions="{Catalog},{Schema},{Table},{Name}" />
+      <Identifier>
+        <Part name="Catalog" underlyingMember="table_catalog" />
+        <Part name="Schema" underlyingMember="table_schema" />
+        <Part name="Table" underlyingMember="table_name" />
+        <Part name="Name" underlyingMember="column_name" />
+      </Identifier>
+      <Properties>
+        <Property name="Name" isIdentifierPart="true" />
+        <Property name="Ordinal" underlyingMember="ordinal_position" />
+        <Property name="NativeDataType" underlyingMember="data_type" />
+        <Property name="AdoDotNetDataType" underlyingMember="data_type">
+          <Conversion>
+            <CallMapper implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetMappedObjectConverter" />
+          </Conversion>
+        </Property>
+        <Property name="AdoDotNetDbType" underlyingMember="data_type">
+          <Conversion>
+            <CallMapper />
+          </Conversion>
+        </Property>
+        <Property name="FrameworkDataType" underlyingMember="data_type">
+          <Conversion>
+            <CallMapper />
+          </Conversion>
+        </Property>
+        <Property name="Length" underlyingMember="character_maximum_length" />
+        <Property name="Precision" underlyingMember="numeric_precision" />
+        <Property name="Scale" underlyingMember="numeric_scale" />
+        <Property name="IsNullable" underlyingMember="is_nullable">
+          <Conversion>
+            <Calculate expr="IIF({0} = 'YES', true, false)" exprType="System.Boolean" />
+          </Conversion>
+        </Property>
+        <Property name="DefaultValue" underlyingMember="column_default" />
+      </Properties>
+    </MappedType>-->
+
     <MappedType name="TableColumn" underlyingType="AttributeMetadata">
       <Selection restrictions="{Table}" />
       <Identifier>
@@ -222,12 +270,67 @@
         <Part name="LogicalName" underlyingMember="LogicalName" />
       </Identifier>
       <Properties>
-        <Property name="IsPrimaryKey" underlyingMember="IsPrimaryKey" />
+        <!--<Property name="IsPrimaryKey" />-->
         <Property name="Name" underlyingMember="LogicalName" />
-        <Property name="Ordinal" underlyingMember="ColumnNumber" />
+        <!--<Property name="Ordinal" />-->
+
+        <Property name="UserDataType" underlyingMember="DataType" />
+        <Property name="NativeDataType" underlyingMember="DataType" />
+        <Property name="AdoDotNetDataType" underlyingMember="DataType">
+          <!--
+						The generic AdoDotNetDataType property is defined to be a value
+						from the ADO .NET provider specific enumeration representing the
+						column data type, when the DDEX provider technology is ADO .NET.
+						Since the underlying type only returns a string representation of
+						the data type, a custom mapper is required to convert these
+						strings into the appropriate value.  Fortunately, the default
+						ADO .NET implementation of the IVsDataMappedObjectConverter
+						interface has this capability, using the ADO .NET DataTypes schema
+						collection.  Since it is the default implementation it does not
+						need to be explicitly specified here, however it is shown anyway
+						for sample purposes.
+					-->
+          <Conversion>
+            <CallMapper implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetMappedObjectConverter, Microsoft.VisualStudio.Data.Framework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+          </Conversion>
+        </Property>
+        <Property name="AdoDotNetDbType" underlyingMember="DataType">
+          <!--
+						The generic AdoDotNetDbType property is defined to be a value from
+						the System.Data.DbType enumeration representing the column data
+						type, when the DDEX provider technology is ADO .NET.  The default
+						implementation of the IVsDataMappedObjectConverter interface is
+						able to infer this value based on information in the ADO .NET
+						DataTypes schema collection.
+					-->
+          <Conversion>
+            <CallMapper />
+          </Conversion>
+        </Property>
+        <Property name="FrameworkDataType" underlyingMember="DataType">
+          <!--
+						The generic FrameworkDataType property is defined to be a
+						System.Type representation of the column data type.  The default
+						implementation of the IVsDataMappedObjectConverter interface is
+						able to produce this value based on information in the ADO .NET
+						DataTypes schema collection.
+					-->
+          <Conversion>
+            <CallMapper />
+          </Conversion>
+        </Property>        
+       
+        <Property name="Length" underlyingMember="MaxLength" />
+        <Property name="Precision" underlyingMember="NumericPrecision" />
+        <Property name="Scale" underlyingMember="NumericScale" />
+
+        <!--<Property name="IsNullable" />
+        <Property name="DefaultValue" />-->
+
+
         <!--<Property name="DataType" />-->
         <!--<Property name="MaxLength" type="System.Int32" />
-        <Property name="Precision" type="System.Byte" />
+       
         <Property name="Scale" type="System.Int32" />
         <Property name="IsNullable" />
         <Property name="DefaultValue" />-->

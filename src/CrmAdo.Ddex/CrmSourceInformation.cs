@@ -43,7 +43,7 @@ namespace CrmAdo.DdexProvider
                 {
                     Site.Open();
                 }
-                CrmDbConnection conn = Connection as CrmDbConnection;
+                CrmDbConnection conn = (CrmDbConnection)Connection;
                 Debug.Assert(conn != null, "Invalid provider object.");
                 if (conn != null)
                 {
@@ -64,7 +64,7 @@ namespace CrmAdo.DdexProvider
                 {
                     Site.Open();
                 }
-                CrmDbConnection conn = Connection as CrmDbConnection;
+                CrmDbConnection conn = (CrmDbConnection)Connection;
                 Debug.Assert(conn != null, "Invalid provider object.");
                 if (conn != null)
                 {
@@ -79,18 +79,18 @@ namespace CrmAdo.DdexProvider
                 }
             }
 
-             if (propertyName.Equals(DataSourceVersion, StringComparison.OrdinalIgnoreCase))
+            if (propertyName.Equals(DataSourceVersion, StringComparison.OrdinalIgnoreCase))
             {
                 if (Site.State != DataConnectionState.Open)
                 {
                     Site.Open();
                 }
-                CrmDbConnection conn = Connection as CrmDbConnection;
+                CrmDbConnection conn = (CrmDbConnection)Connection;
                 Debug.Assert(conn != null, "Invalid provider object.");
                 if (conn != null)
                 {
-                    try                    {
-                       
+                    try
+                    {
                         return conn.ServerVersion;
                     }
                     catch (DbException)
@@ -99,7 +99,28 @@ namespace CrmAdo.DdexProvider
                     }
                 }
             }
-          
+
+            if (propertyName.Equals("DefaultSchema", StringComparison.OrdinalIgnoreCase))
+            {
+                if (Site.State != DataConnectionState.Open)
+                {
+                    Site.Open();
+                }
+                CrmDbConnection conn = (CrmDbConnection)Connection;
+                Debug.Assert(conn != null, "Invalid provider object.");
+                if (conn != null)
+                {
+                    try
+                    {
+                        return "";
+                    }
+                    catch (DbException)
+                    {
+                        // We let the base class apply default behavior
+                    }
+                }
+            }
+
             var val = base.RetrieveValue(propertyName);
 
             return val;

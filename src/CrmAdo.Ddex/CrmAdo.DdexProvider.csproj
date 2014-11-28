@@ -53,8 +53,9 @@
     <Reference Include="AntiXSSLibrary">
       <HintPath>..\..\lib\Microsoft.CrmSdk.Extensions.6.0.4\lib\net40\AntiXSSLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="CrmAdo">
-      <HintPath>..\..\lib\CrmAdo.1.2.6\lib\net45\CrmAdo.dll</HintPath>
+    <Reference Include="CrmAdo, Version=1.2.17.0, Culture=neutral, PublicKeyToken=ba966c247ee8fd34, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\lib\CrmAdo.1.2.17\lib\net45\CrmAdo.dll</HintPath>
     </Reference>
     <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
