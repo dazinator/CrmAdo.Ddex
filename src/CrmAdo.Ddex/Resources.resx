@@ -348,4 +348,28 @@
   <data name="AttributeProperty_OptionSetOptions_DisplayName" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="EntityProperty_Calalog_Description" xml:space="preserve">
+    <value>This is required by ADO.NET but irrelevent.</value>
+  </data>
+  <data name="EntityProperty_Catalog_DisplayName" xml:space="preserve">
+    <value>Catalog</value>
+  </data>
+  <data name="EntityProperty_Name_Description" xml:space="preserve">
+    <value>The name of the entity.</value>
+  </data>
+  <data name="EntityProperty_Name_DisplayName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="EntityProperty_Schema_Description" xml:space="preserve">
+    <value>This is required by ADO.NET but irrelevent.</value>
+  </data>
+  <data name="EntityProperty_Schema_DisplayName" xml:space="preserve">
+    <value>Schema</value>
+  </data>
+  <data name="EntityProperty_Type_Description" xml:space="preserve">
+    <value>The type of the table. Either BASE TABLE or VIEW.</value>
+  </data>
+  <data name="EntityProperty_Type_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

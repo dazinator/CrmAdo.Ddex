@@ -664,6 +664,78 @@ namespace CrmAdo.DdexProvider {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is required by ADO.NET but irrelevent..
+        /// </summary>
+        internal static string EntityProperty_Calalog_Description {
+            get {
+                return ResourceManager.GetString("EntityProperty_Calalog_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catalog.
+        /// </summary>
+        internal static string EntityProperty_Catalog_DisplayName {
+            get {
+                return ResourceManager.GetString("EntityProperty_Catalog_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the entity..
+        /// </summary>
+        internal static string EntityProperty_Name_Description {
+            get {
+                return ResourceManager.GetString("EntityProperty_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string EntityProperty_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("EntityProperty_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is required by ADO.NET but irrelevent..
+        /// </summary>
+        internal static string EntityProperty_Schema_Description {
+            get {
+                return ResourceManager.GetString("EntityProperty_Schema_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schema.
+        /// </summary>
+        internal static string EntityProperty_Schema_DisplayName {
+            get {
+                return ResourceManager.GetString("EntityProperty_Schema_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of the table. Either BASE TABLE or VIEW..
+        /// </summary>
+        internal static string EntityProperty_Type_Description {
+            get {
+                return ResourceManager.GetString("EntityProperty_Type_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string EntityProperty_Type_DisplayName {
+            get {
+                return ResourceManager.GetString("EntityProperty_Type_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entities.
         /// </summary>
         internal static string Node_Entities {

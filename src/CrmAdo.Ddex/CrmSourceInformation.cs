@@ -36,69 +36,7 @@ namespace CrmAdo.DdexProvider
         /// is executed.
         /// </summary>
         protected override object RetrieveValue(string propertyName)
-        {
-            if (propertyName.Equals(DataSourceName, StringComparison.OrdinalIgnoreCase))
-            {
-                if (Site.State != DataConnectionState.Open)
-                {
-                    Site.Open();
-                }
-                CrmDbConnection conn = (CrmDbConnection)Connection;
-                Debug.Assert(conn != null, "Invalid provider object.");
-                if (conn != null)
-                {
-                    try
-                    {
-                        return conn.DataSource;
-                    }
-                    catch (DbException)
-                    {
-                        // We let the base class apply default behavior
-                    }
-                }
-            }
-
-            if (propertyName.Equals(DefaultCatalog, StringComparison.OrdinalIgnoreCase))
-            {
-                if (Site.State != DataConnectionState.Open)
-                {
-                    Site.Open();
-                }
-                CrmDbConnection conn = (CrmDbConnection)Connection;
-                Debug.Assert(conn != null, "Invalid provider object.");
-                if (conn != null)
-                {
-                    try
-                    {
-                        return conn.Database;
-                    }
-                    catch (DbException)
-                    {
-                        // We let the base class apply default behavior
-                    }
-                }
-            }
-
-            if (propertyName.Equals(DataSourceVersion, StringComparison.OrdinalIgnoreCase))
-            {
-                if (Site.State != DataConnectionState.Open)
-                {
-                    Site.Open();
-                }
-                CrmDbConnection conn = (CrmDbConnection)Connection;
-                Debug.Assert(conn != null, "Invalid provider object.");
-                if (conn != null)
-                {
-                    try
-                    {
-                        return conn.ServerVersion;
-                    }
-                    catch (DbException)
-                    {
-                        // We let the base class apply default behavior
-                    }
-                }
-            }
+        {          
 
             if (propertyName.Equals("DefaultSchema", StringComparison.OrdinalIgnoreCase))
             {
@@ -122,33 +60,8 @@ namespace CrmAdo.DdexProvider
             }
 
             var val = base.RetrieveValue(propertyName);
-
             return val;
-
-            //if (propertyName.Equals(DefaultSchema,
-            //        StringComparison.OrdinalIgnoreCase))
-            //{
-            //    if (Site.State != DataConnectionState.Open)
-            //    {
-            //        Site.Open();
-            //    }
-            //    CrmDbConnection conn = Connection as CrmDbConnection;
-            //    Debug.Assert(conn != null, "Invalid provider object.");
-            //    if (conn != null)
-            //    {
-            //        DbCommand comm = conn.CreateCommand();
-            //        try
-            //        {
-            //            comm.CommandText = "SELECT SCHEMA_NAME()";
-            //            return comm.ExecuteScalar() as string;
-            //        }
-            //        catch (DbException)
-            //        {
-            //            // We let the base class apply default behavior
-            //        }
-            //    }
-            //}
-            //return base.RetrieveValue(propertyName);
+          
         }
 
         #endregion

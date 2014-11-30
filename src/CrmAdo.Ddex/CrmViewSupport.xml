@@ -144,6 +144,27 @@
     </Property>
   </Define>
 
+  <Define name="EntityProperties">
+    <Properties>
+      <Property name="Catalog">
+        <DisplayName resource="EntityProperty_Catalog_DisplayName" />
+        <Description resource="EntityProperty_Calalog_Description" />
+      </Property>
+      <Property name="Schema">
+        <DisplayName resource="EntityProperty_Schema_DisplayName" />
+        <Description resource="EntityProperty_Schema_Description" />
+      </Property>
+      <Property name="Name">
+        <DisplayName resource="EntityProperty_Name_DisplayName" />
+        <Description resource="EntityProperty_Name_Description" />
+      </Property>
+      <Property name="Type">
+        <DisplayName resource="EntityProperty_Type_DisplayName" />
+        <Description resource="EntityProperty_Type_Description" />
+      </Property>
+    </Properties>
+  </Define>
+
   <Views>
     <View name="Dynamics Crm">
       <DisplayName>CrmAdo Dynamics Crm</DisplayName>
@@ -169,6 +190,7 @@
                 <SelectionNode nodeId="Table">
                   <DisplayName resource="Node_Entity" />
                   <Icon name="Table"  />
+                  <PropertiesRef name="EntityProperties"/>
                   <Commands>
                     <Command guid="501822E1-B5AF-11d0-B4DC-00A0C91506EF" cmdid="13608" provider="884DD964-5327-461f-9F06-6484DD540F8F" />
                   </Commands>

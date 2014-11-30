@@ -37,7 +37,7 @@
     <Property name="MaxLength" type="System.Int32" />
     <Property name="NumericPrecision" type="System.Int32" />
     <Property name="NumericScale" type="System.Int32" />
-    <Property name="IsNullable" type="System.Boolean" />   
+    <Property name="IsNullable" type="System.Boolean" />
     <Property name="DefaultValue" type="System.Object" />
     <Property name="DataType" type="System.String" />
     <Property name="Ordinal" type="System.Int32" />
@@ -131,6 +131,7 @@
             <Parameter value="Table" />
           </Parameters>
         </Service>
+
         <Service type="IDSRefBuilder">
           <Parameters method="AppendToDSRef">
             <Parameter>
@@ -221,6 +222,21 @@
       </Identifier>
       <Properties>
         <Property name="Name" isIdentifierPart="true" underlyingMember="LogicalName" />
+        <Property name="Catalog">
+          <Conversion>
+            <Calculate expr="IIF({0} = {0}, '', '')" exprType="System.String" />
+          </Conversion>
+        </Property>
+        <Property name="Schema" underlyingMember="LogicalName">
+          <Conversion>
+            <Calculate expr="IIF({0} = {0}, '', '')" exprType="System.String" />
+          </Conversion>
+        </Property>
+        <Property name="Type" underlyingMember="LogicalName">
+          <Conversion>
+            <Calculate expr="IIF({0} = {0}, 'BASE TABLE', 'VIEW')" exprType="System.String" />
+          </Conversion>
+        </Property>
       </Properties>
     </MappedType>
 
@@ -318,8 +334,8 @@
           <Conversion>
             <CallMapper />
           </Conversion>
-        </Property>        
-       
+        </Property>
+
         <Property name="Length" underlyingMember="MaxLength" />
         <Property name="Precision" underlyingMember="NumericPrecision" />
         <Property name="Scale" underlyingMember="NumericScale" />
