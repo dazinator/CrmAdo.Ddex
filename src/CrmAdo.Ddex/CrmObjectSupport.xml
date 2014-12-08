@@ -2,8 +2,31 @@
 <DataObjectSupport xmlns="http://schemas.microsoft.com/VisualStudio/2007/07/Data/DataObjectSupport">
 
   <Define name="BaseAttributeProperties">
-    <Property name="EntityLogicalName" isIdentifierPart="true" />
-    <Property name="LogicalName" isIdentifierPart="true" />
+
+    <!--Standard Sql Server Properties: http://msdn.microsoft.com/en-us/library/ms254969(v=vs.110).aspx -->
+    <Property name="table_name" isIdentifierPart="true" />
+    <Property name="column_name" isIdentifierPart="true" />
+    <Property name="table_catalog" />
+    <Property name="table_schema" />
+    <Property name="ordinal_position" type="System.Int32" />
+    <Property name="column_default" />
+    <Property name="is_nullable" />
+    <Property name="data_type" />
+    <Property name="character_maximum_length" type="System.Int32" />
+    <Property name="character_octet_length" type="System.Int32" />
+    <Property name="numeric_precision" type="System.Int32" />
+    <Property name="numeric_precision_radix" type="System.Int32" />
+    <Property name="numeric_scale" type="System.Int32" />
+    <Property name="datetime_precision" type="System.Int32" />
+    <Property name="character_set_catalog" />
+    <Property name="character_set_schema" />
+    <Property name="character_set_name" />
+    <Property name="collation_catalog" />
+    <Property name="is_sparse" type="System.Boolean" />
+    <Property name="is_column_set" type="System.Boolean" />
+    <Property name="is_filestream" type="System.Boolean"/>
+
+    <!--Dynamics Crm Specific Properties-->
     <Property name="AttributeOf"  />
     <Property name="AttributeType"  />
     <Property name="AttributeTypeName" minSourceVersion="6.0.0000.0215"/>
@@ -11,7 +34,7 @@
     <Property name="CanBeSecuredForRead"  />
     <Property name="CanBeSecuredForUpdate"  />
     <Property name="CanModifyAdditionalSettings"  />
-    <Property name="ColumnNumber"  />
+    <!--<Property name="ColumnNumber"  />-->
     <Property name="DeprecatedVersion"  />
     <Property name="Description"  />
     <Property name="DisplayName"  />
@@ -33,14 +56,13 @@
     <Property name="RequiredLevel"  />
     <Property name="SchemaName"  />
     <Property name="IsPrimaryKey" type="System.Boolean" />
-
-    <Property name="MaxLength" type="System.Int32" />
-    <Property name="NumericPrecision" type="System.Int32" />
-    <Property name="NumericScale" type="System.Int32" />
-    <Property name="IsNullable" type="System.Boolean" />
-    <Property name="DefaultValue" type="System.Object" />
+    <!--<Property name="MaxLength" type="System.Int32" />-->
+    <!--<Property name="NumericPrecision" type="System.Int32" />
+    <Property name="NumericScale" type="System.Int32" />-->
+    <!--<Property name="IsNullable" type="System.Boolean" />-->
+    <!--<Property name="DefaultValue" type="System.Object" />
     <Property name="DataType" type="System.String" />
-    <Property name="Ordinal" type="System.Int32" />
+    <Property name="Ordinal" type="System.Int32" />-->
 
   </Define>
 
@@ -53,19 +75,24 @@
 
     <RootType>
       <Properties>
-        <Property name="Name"/>
+        <Property name="Url" type="System.String"/>
+        <Property name="Database" type="System.String"/>
       </Properties>
       <Services>
-        <Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector" />
+        <!--<Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector" />-->
+        <Service type="IVsDataObjectSelector" implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetRootObjectSelector" />
       </Services>
     </RootType>
 
-    <Type name="EntityMetadata" nameProperty="LogicalName">
+    <Type name="Tables" nameProperty="table_name">
       <Identifier>
-        <Part name="LogicalName" />
+        <Part name="table_name" />
       </Identifier>
       <Properties>
-        <Property name="LogicalName" isIdentifierPart="true" />
+        <Property name="table_catalog" />
+        <Property name="table_schema" />
+        <Property name="table_name" isIdentifierPart="true" />
+        <Property name="table_type" />
         <Property name="MetadataId" />
         <Property name="ActivityTypeMask" />
         <Property name="AutoCreateAccessTeams" minSourceVersion="6.0.0000.0215" />
@@ -128,7 +155,7 @@
       <Services>
         <Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector">
           <Parameters method="SelectObjects">
-            <Parameter value="Table" />
+            <Parameter value="Tables" />
           </Parameters>
         </Service>
 
@@ -150,10 +177,10 @@
       </Services>
     </Type>
 
-    <Type name="AttributeMetadata" nameProperty="LogicalName">
+    <Type name="Columns" nameProperty="column_name">
       <Identifier>
-        <Part name="EntityLogicalName" />
-        <Part name="LogicalName" />
+        <Part name="table_name" />
+        <Part name="column_name" />
       </Identifier>
       <Properties>
         <PropertyListRef name="BaseAttributeProperties" />
@@ -162,7 +189,7 @@
       <Services>
         <Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector">
           <Parameters method="SelectObjects">
-            <!--<Parameter value="Column" />-->
+            <Parameter value="Columns" />          
           </Parameters>
         </Service>
         <Service type="IDSRefBuilder">
@@ -215,28 +242,26 @@
   </Types>
   <MappedTypes>
 
-    <MappedType name="Table" underlyingType="EntityMetadata">
-      <Selection/>
+    <MappedType name="Table" underlyingType="Tables">
+      <Selection restrictions="{Name}"/>
       <Identifier>
-        <Part name="Name" underlyingMember="LogicalName" />
+        <Part name="Name" underlyingMember="table_name" />
       </Identifier>
       <Properties>
-        <Property name="Name" isIdentifierPart="true" underlyingMember="LogicalName" />
-        <Property name="Catalog">
+        <Property name="Name" isIdentifierPart="true" />
+        <Property name="Catalog" underlyingMember="table_catalog" />
+        <Property name="Schema" underlyingMember="table_schema" />
+        <Property name="Type">
           <Conversion>
-            <Calculate expr="IIF({0} = {0}, '', '')" exprType="System.String" />
+            <Calculate expr="'USER'" exprType="System.String" />
           </Conversion>
         </Property>
-        <Property name="Schema" underlyingMember="LogicalName">
-          <Conversion>
-            <Calculate expr="IIF({0} = {0}, '', '')" exprType="System.String" />
-          </Conversion>
-        </Property>
-        <Property name="Type" underlyingMember="LogicalName">
+       
+        <!--<Property name="Type" underlyingMember="LogicalName">
           <Conversion>
             <Calculate expr="IIF({0} = {0}, 'BASE TABLE', 'VIEW')" exprType="System.String" />
           </Conversion>
-        </Property>
+        </Property>-->
       </Properties>
     </MappedType>
 
@@ -279,20 +304,18 @@
       </Properties>
     </MappedType>-->
 
-    <MappedType name="TableColumn" underlyingType="AttributeMetadata">
+    <MappedType name="TableColumn" underlyingType="Columns">
       <Selection restrictions="{Table}" />
       <Identifier>
-        <Part name="EntityLogicalName" underlyingMember="EntityLogicalName" />
-        <Part name="LogicalName" underlyingMember="LogicalName" />
+        <Part name="Table" underlyingMember="table_name" />
+        <Part name="Name" underlyingMember="column_name" />
       </Identifier>
       <Properties>
         <!--<Property name="IsPrimaryKey" />-->
-        <Property name="Name" underlyingMember="LogicalName" />
-        <!--<Property name="Ordinal" />-->
-
-        <Property name="UserDataType" underlyingMember="DataType" />
-        <Property name="NativeDataType" underlyingMember="DataType" />
-        <Property name="AdoDotNetDataType" underlyingMember="DataType">
+        <Property name="Name" isIdentifierPart="true" />
+        <Property name="Ordinal" underlyingMember="ordinal_position" />
+        <Property name="NativeDataType" underlyingMember="data_type" />
+        <Property name="AdoDotNetDataType" underlyingMember="data_type">
           <!--
 						The generic AdoDotNetDataType property is defined to be a value
 						from the ADO .NET provider specific enumeration representing the
@@ -307,10 +330,10 @@
 						for sample purposes.
 					-->
           <Conversion>
-            <CallMapper implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetMappedObjectConverter, Microsoft.VisualStudio.Data.Framework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+            <CallMapper implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetMappedObjectConverter" />
           </Conversion>
         </Property>
-        <Property name="AdoDotNetDbType" underlyingMember="DataType">
+        <Property name="AdoDotNetDbType" underlyingMember="data_type">
           <!--
 						The generic AdoDotNetDbType property is defined to be a value from
 						the System.Data.DbType enumeration representing the column data
@@ -323,7 +346,7 @@
             <CallMapper />
           </Conversion>
         </Property>
-        <Property name="FrameworkDataType" underlyingMember="DataType">
+        <Property name="FrameworkDataType" underlyingMember="data_type">
           <!--
 						The generic FrameworkDataType property is defined to be a
 						System.Type representation of the column data type.  The default
@@ -335,18 +358,22 @@
             <CallMapper />
           </Conversion>
         </Property>
-
-        <Property name="Length" underlyingMember="MaxLength" />
-        <Property name="Precision" underlyingMember="NumericPrecision" />
-        <Property name="Scale" underlyingMember="NumericScale" />
-
+        <Property name="Length" underlyingMember="character_maximum_length" />
+        <Property name="Precision" underlyingMember="numeric_precision" />
+        <Property name="Scale" underlyingMember="numeric_scale" />
+        <Property name="IsNullable" underlyingMember="is_nullable">
+          <!--<Conversion>
+            <Calculate expr="IIF({0} = 'YES', true, false)" exprType="System.Boolean" />
+          </Conversion>-->
+        </Property>
+        <Property name="DefaultValue" underlyingMember="column_default" />
+        <!--<Property name="UserDataType" underlyingMember="DataType" />-->       
+        
+     
         <!--<Property name="IsNullable" />
         <Property name="DefaultValue" />-->
-
-
         <!--<Property name="DataType" />-->
-        <!--<Property name="MaxLength" type="System.Int32" />
-       
+        <!--<Property name="MaxLength" type="System.Int32" />       
         <Property name="Scale" type="System.Int32" />
         <Property name="IsNullable" />
         <Property name="DefaultValue" />-->

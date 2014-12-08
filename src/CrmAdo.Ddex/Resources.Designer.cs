@@ -745,7 +745,7 @@ namespace CrmAdo.DdexProvider {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {LogicalName}.
+        ///   Looks up a localized string similar to {table_name}.
         /// </summary>
         internal static string Node_Entity {
             get {
@@ -754,7 +754,7 @@ namespace CrmAdo.DdexProvider {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {LogicalName}.
+        ///   Looks up a localized string similar to {column_name}.
         /// </summary>
         internal static string Node_EntityAttribute {
             get {
@@ -772,7 +772,7 @@ namespace CrmAdo.DdexProvider {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CrmAdo - {Root.Name}.
+        ///   Looks up a localized string similar to CrmAdo - {Root.Database}.
         /// </summary>
         internal static string Node_InitialDisplayName {
             get {

@@ -13,9 +13,9 @@ namespace CrmAdo.DdexProvider
     public static class CrmObjectTypes
     {
         public const string Root = "";
-        //public const string User = "User";
-        public const string EntityMetadata = "EntityMetadata";
-        public const string AttributeMetadata = "AttributeMetadata";
+        public const string User = "Users";
+        public const string CrmTable = "Tables";
+        public const string CrmColumn = "Columns";
         public const string PluginAssembly = "PluginAssembly";
       
         //public const string Table = "Table";

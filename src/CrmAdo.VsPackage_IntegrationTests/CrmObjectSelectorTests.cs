@@ -47,8 +47,8 @@ namespace CrmAdo.DdexProvider.IntegrationTests
 
         }
 
-        [Test(Description = "Integration test for selecting entities for ddex.")]
-        public void Should_Be_Able_To_Select_Entities()
+        [Test(Description = "Integration test for selecting tables for ddex.")]
+        public void Should_Be_Able_To_Select_Tables()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["CrmOrganisation"];
             using (var conn = new CrmDbConnection(connectionString.ConnectionString))
@@ -62,9 +62,8 @@ namespace CrmAdo.DdexProvider.IntegrationTests
 
                 var sut = new CrmObjectSelector(mockVsDataConnection);
                 Console.Write(conn.ServerVersion);
-               
 
-                var reader = sut.SelectObjects(CrmObjectTypes.EntityMetadata, null, null);
+                var reader = sut.SelectObjects(CrmObjectTypes.CrmTable, null, null);
                 using (reader)
                 {
                     while (reader.Read())
@@ -76,6 +75,39 @@ namespace CrmAdo.DdexProvider.IntegrationTests
             }
 
         }
+
+        [Test(Description = "Integration test for selecting a table for ddex.")]
+        public void Should_Be_Able_To_Select_A_Table()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["CrmOrganisation"];
+            using (var conn = new CrmDbConnection(connectionString.ConnectionString))
+            {
+                conn.Open();
+
+                IVsDataConnection mockVsDataConnection = MockRepository.GenerateMock<IVsDataConnection>();
+                mockVsDataConnection.Stub(c => c.State).Return(DataConnectionState.Open);
+                mockVsDataConnection.Stub(c => c.GetLockedProviderObject()).Return(conn);
+                mockVsDataConnection.Stub(c => c.UnlockProviderObject());
+
+                var sut = new CrmObjectSelector(mockVsDataConnection);
+                Console.Write(conn.ServerVersion);
+
+                object[] restrictions = new object[] { "account" };
+
+                var reader = sut.SelectObjects(CrmObjectTypes.CrmTable, restrictions, null);
+                int count = 0;
+                using (reader)
+                {
+                    while (reader.Read())
+                    {
+                        count = count + 1;
+                        Console.WriteLine("TABLE: " + reader.GetItem("LogicalName"));
+                    }
+                }
+                Assert.That(count, Is.EqualTo(1));
+            }
+        }
+
 
         [Test(Description = "Integration test for selecting attributes for ddex.")]
         [TestCase("contact", Description = "Selects attributes for contact entity")]
@@ -94,7 +126,7 @@ namespace CrmAdo.DdexProvider.IntegrationTests
                 var sut = new CrmObjectSelector(mockVsDataConnection);
                 var restrictions = new object[] { restriction };
 
-                var reader = sut.SelectObjects(CrmObjectTypes.AttributeMetadata, restrictions, null);
+                var reader = sut.SelectObjects(CrmObjectTypes.CrmColumn, restrictions, null);
                 using (reader)
                 {
                     while (reader.Read())

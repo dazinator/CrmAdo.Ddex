@@ -7,11 +7,11 @@
         <DisplayName resource="AttributeProperty_IsPrimaryKey_DisplayName"></DisplayName>
         <Description resource="AttributeProperty_IsPrimaryKey_Description" />
       </Property>
-      <Property name="EntityLogicalName">
+      <Property name="table_name">
         <DisplayName resource="AttributeProperty_EntityLogicalName_DisplayName"></DisplayName>
         <Description resource="AttributeProperty_EntityLogicalName_Description" />
       </Property>
-      <Property name="LogicalName">
+      <Property name="column_name">
         <DisplayName resource="AttributeProperty_LogicalName_DisplayName"></DisplayName>
         <Description resource="AttributeProperty_LogicalName_Description" />
       </Property>
@@ -43,7 +43,7 @@
         <DisplayName resource="AttributeProperty_CanModifyAdditionalSettings_DisplayName"></DisplayName>
         <Description resource="AttributeProperty_CanModifyAdditionalSettings_Description" />
       </Property>
-      <Property name="ColumnNumber">
+      <Property name="ordinal_position">
         <DisplayName resource="AttributeProperty_ColumnNumber_DisplayName"></DisplayName>
         <Description resource="AttributeProperty_ColumnNumber_Description" />
       </Property>
@@ -146,22 +146,22 @@
 
   <Define name="EntityProperties">
     <Properties>
-      <Property name="Catalog">
+      <!--<Property name="Catalog">
         <DisplayName resource="EntityProperty_Catalog_DisplayName" />
         <Description resource="EntityProperty_Calalog_Description" />
       </Property>
       <Property name="Schema">
         <DisplayName resource="EntityProperty_Schema_DisplayName" />
         <Description resource="EntityProperty_Schema_Description" />
-      </Property>
+      </Property>-->
       <Property name="Name">
         <DisplayName resource="EntityProperty_Name_DisplayName" />
         <Description resource="EntityProperty_Name_Description" />
       </Property>
-      <Property name="Type">
+      <!--<Property name="Type">
         <DisplayName resource="EntityProperty_Type_DisplayName" />
         <Description resource="EntityProperty_Type_Description" />
-      </Property>
+      </Property>-->
     </Properties>
   </Define>
 
@@ -186,7 +186,7 @@
               <Command guid="501822E1-B5AF-11d0-B4DC-00A0C91506EF" cmdid="13608" provider="884DD964-5327-461f-9F06-6484DD540F8F" />
             </Commands>
             <Children>
-              <Selection type="EntityMetadata" >
+              <Selection type="Tables">
                 <SelectionNode nodeId="Table">
                   <DisplayName resource="Node_Entity" />
                   <Icon name="Table"  />
@@ -199,7 +199,7 @@
                       <DisplayName resource="Node_EntityAttributes" />
                       <Icon name="Folder" />
                       <Children>
-                        <Selection type="AttributeMetadata" restrictions="{Table.LogicalName}">
+                        <Selection type="Columns" restrictions="{Table.table_name}">
                           <SelectionNode>
                             <DisplayName resource="Node_EntityAttribute"/>
                             <Icon name="PrimaryKey" when ="{IsPrimaryKey} = true"/>
