@@ -305,7 +305,7 @@
     </MappedType>-->
 
     <MappedType name="TableColumn" underlyingType="Columns">
-      <Selection restrictions="{Table}" />
+      <Selection restrictions="{Table},{Column}" />
       <Identifier>
         <Part name="Table" underlyingMember="table_name" />
         <Part name="Name" underlyingMember="column_name" />
