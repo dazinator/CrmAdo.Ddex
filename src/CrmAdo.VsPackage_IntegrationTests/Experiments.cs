@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
-using CrmAdo.Dynamics;
-using CrmAdo.Dynamics.Metadata;
 using NUnit.Framework;
-using System.IO;
 
 namespace CrmAdo.DdexProvider.IntegrationTests
 {
