@@ -43,7 +43,7 @@ namespace CrmAdo.DdexProvider
                 {
                     Site.Open();
                 }
-                CrmDbConnection conn = Connection as CrmDbConnection;
+                DbConnection conn = Connection as DbConnection;
                 Debug.Assert(conn != null, "Invalid provider object.");
                 if (conn != null)
                 {
@@ -64,7 +64,7 @@ namespace CrmAdo.DdexProvider
                 {
                     Site.Open();
                 }
-                CrmDbConnection conn = Connection as CrmDbConnection;
+                DbConnection conn = Connection as DbConnection;
                 Debug.Assert(conn != null, "Invalid provider object.");
                 if (conn != null)
                 {
@@ -85,7 +85,7 @@ namespace CrmAdo.DdexProvider
                 {
                     Site.Open();
                 }
-                CrmDbConnection conn = Connection as CrmDbConnection;
+                DbConnection conn = Connection as DbConnection;
                 Debug.Assert(conn != null, "Invalid provider object.");
                 if (conn != null)
                 {
