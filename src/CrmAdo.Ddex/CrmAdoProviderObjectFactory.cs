@@ -16,184 +16,202 @@ using EnvDTE;
 
 namespace CrmAdo.DdexProvider
 {
-    public class CrmAdoConnectionSupport : AdoDotNetConnectionSupport
-    {
-        protected override IVsDataReader DeriveSchemaCore(string command, DataCommandType commandType, IVsDataParameter[] parameters, int commandTimeout)
-        {
-            var result = base.DeriveSchemaCore(command, commandType, parameters, commandTimeout);
-            return result;
-        }
 
-        protected override DbCommand GetCommand(string command, DataCommandType commandType, IVsDataParameter[] parameters, int commandTimeout)
-        {
-            var result = base.GetCommand(command, commandType, parameters, commandTimeout);
-            return result;
-        }
-
-    }
-
-    public class CrmAdoDsRefBuilder : DSRefBuilder
-    {
-        protected override void AppendToDSRef(object dsRef, string typeName, object[] identifier, object[] parameters)
-        {
-            base.AppendToDSRef(dsRef, typeName, identifier, parameters);
-            return;
-        }        
-
-    }
-
-
-    public class CrmAdoDataSourceVersionNumberComparer : IComparer<string>
-    {
-        public int Compare(string x, string y)
-        {
-            return x.CompareTo(y);
-        }
-    }
-
-    public class CrmAdoDataSourceVersionComparer : DataSiteableObject<Microsoft.VisualStudio.Data.Services.IVsDataConnection>, IVsDataSourceVersionComparer, IComparable<string>
-    {
-        private bool _HasSourceVersion = false;
-
-        public CrmAdoDataSourceVersionComparer()
-            : this(null)
-        {
-        }
-
-        public CrmAdoDataSourceVersionComparer(IVsDataConnection site)
-            : this(site, new CrmAdoDataSourceVersionNumberComparer())
-        {
-        }
-
-        public CrmAdoDataSourceVersionComparer(IVsDataConnection site, IComparer<string> comparer)
-            : base(site)
-        {
-            Comparer = comparer;
-        }
-
-        protected IComparer<string> Comparer { get; set; }
-
-        private string _SourceVersion = string.Empty;
-        public string SourceVersion
-        {
-            get
-            {
-                if (!this._HasSourceVersion && base.Site != null)
-                {
-                    IVsDataSourceInformation service = base.Site.GetService(typeof(IVsDataSourceInformation)) as IVsDataSourceInformation;
-                    if (service != null)
-                    {
-                        this._SourceVersion = service["DataSourceVersion"] as string;
-                    }
-                    this._HasSourceVersion = true;
-                }
-                return this._SourceVersion;
-
-            }
-            set
-            {
-                _SourceVersion = value;
-            }
-        }
-
-        public int CompareTo(string other)
-        {
-            if (this.SourceVersion == null)
-            {
-                return 0;
-            }
-            var result = Comparer.Compare(this.SourceVersion, other);
-
-            return result;
-        }
-
-    }
 
     [Guid(GuidList.guidCrmAdo_DdexProviderObjectFactoryString)]
     class CrmAdoProviderObjectFactory : DataProviderObjectFactory
     {
+
+        public Dictionary<Type, Func<object>> TypeMappings { get; set; }
+
+        public CrmAdoProviderObjectFactory()
+        {
+            TypeMappings = new Dictionary<Type, Func<object>>();
+            TypeMappings.Add(typeof(IVsDataConnectionProperties), () => { return CreateNewConnectionProperties(); });
+            TypeMappings.Add(typeof(IVsDataConnectionUIProperties), () => { return CreateNewConnectionProperties(); });
+            TypeMappings.Add(typeof(IVsDataConnectionSupport), () => { return CreateNewConnectionSupport(); });
+            TypeMappings.Add(typeof(IDSRefBuilder), () => { return CreateNewDsRefBuilder(); });
+            TypeMappings.Add(typeof(IVsDataObjectSupport), () => { return CreateNewDataObjectSupport(); });
+            TypeMappings.Add(typeof(IVsDataViewSupport), () => { return CreateNewDataViewSupport(); });
+            TypeMappings.Add(typeof(IVsDataObjectSelector), () => { return CreateNewDataObjectSelector(); });
+            TypeMappings.Add(typeof(IVsDataSourceInformation), () => { return CreateNewDataSourceInformation(); });
+            TypeMappings.Add(typeof(IVsDataObjectMemberComparer), () => { return CreateNewDataObjectMemberComparer(); });
+            TypeMappings.Add(typeof(IVsDataMappedObjectConverter), () => { return CreateNewDataMappedObjectConverter(null); });
+            TypeMappings.Add(typeof(IVsDataObjectIdentifierConverter), () => { return CreateNewDataObjectIdentifierConverter(); });
+            TypeMappings.Add(typeof(IVsDataSourceVersionComparer), () => { return CreateNewDataSourceVersionComparer(null); });
+            TypeMappings.Add(typeof(IVsDataConnectionEquivalencyComparer), () => { return CreateNewDataConnectionEquivalencyComparer(null); });
+            TypeMappings.Add(typeof(IVsDataObjectIdentifierResolver), () => { return CreateNewDataObjectIdentifierResolver(null); });
+        }
+
+
+
         public override object CreateObject(Type objType)
         {
 
-            if (objType == typeof(IVsDataConnectionProperties) || objType == typeof(IVsDataConnectionUIProperties))
-                return new AdoDotNetConnectionProperties();
-            else if (objType == typeof(IVsDataConnectionSupport))
+            var hasMapping = TypeMappings.ContainsKey(objType);
+            if (hasMapping)
             {
-                var connSupport = new CrmAdoConnectionSupport();
-
-                //var comparer = new CrmAdoDataSourceVersionComparer();              
-
-                var serviceType = typeof(IVsDataSourceVersionComparer);
-                var existingService = connSupport.GetService(serviceType);
-                IVsDataConnection existingSite = null;
-
-                if (existingService != null)
+                var factory = TypeMappings[objType];
+                if (factory != null)
                 {
-                    var existingSitable = (DataSiteableObject<IVsDataConnection>)existingService;
-                    existingSite = existingSitable.Site;
+                    var instance = factory();
+                    return instance;
                 }
-
-                connSupport.RemoveService(serviceType);
-                var dsVersionComparer = new CrmAdoDataSourceVersionComparer(existingSite);
-
-                connSupport.SiteChanged += (o, e) =>
-                {
-                    dsVersionComparer.Site = connSupport.Site;
-                };
-
-                connSupport.AddService(serviceType, dsVersionComparer);
-
-                //IServiceProvider provider =  EnvDTE.DTE.
-
-                //connSupport.RemoveService(serviceType);
-
-                //connSupport.AddService(serviceType, (container, type) =>
-                //{
-
-
-                //    // container.AddService(type, dsVersionComparer);
-                //    return dsVersionComparer;
-
-                //});
-
-
-                return connSupport;
             }
-            else if (objType == typeof(IDSRefBuilder))
-                return new CrmAdoDsRefBuilder();
-            else if (objType == typeof(IVsDataObjectSupport))
-                return new DataObjectSupport(this.GetType().Namespace + ".CrmObjectSupport", System.Reflection.Assembly.GetExecutingAssembly());
-            else if (objType == typeof(IVsDataViewSupport))
-                return new DataViewSupport(this.GetType().Namespace + ".CrmViewSupport", System.Reflection.Assembly.GetExecutingAssembly());
-            else if (objType == typeof(IVsDataObjectSelector))
-                return new CrmObjectSelector();
-            else if (objType == typeof(IVsDataSourceInformation))
-                return new CrmSourceInformation();
 
-            else if (objType == typeof(IVsDataConnectionUIControl))
-            //   return new Microsoft.VisualStudio.Data.Framework.AdoDotNet.data();
-            {
 
-            }
-            else if (objType == typeof(IVsDataConnectionUIProperties))
-            {
+            //else if (objType == typeof(IVsDataConnectionUIControl))
+            ////   return new Microsoft.VisualStudio.Data.Framework.AdoDotNet.data();
+            //{
 
-            }
+            //}
+            //else if (objType == typeof(IVsDataConnectionUIProperties))
+            //{
+
+            //}
+            //else if (objType == typeof(IVsDataObjectMemberComparer))
+            //{
+
+            //}
+            //else if (objType == typeof(IVsDataMappedObjectConverter))
+            //{
+            //    return new CrmAdoDataMappedObjectConverter();
+            //}
 
             return null;
 
         }
 
 
-        public override Type GetType(string typeName)
+        private object CreateNewDataObjectIdentifierConverter()
         {
-            return base.GetType(typeName);
+            return new CrmAdoObjectIdentifierConverter();
         }
 
-        public override System.Reflection.Assembly GetAssembly(string assemblyString)
+       
+
+        private object CreateNewDataObjectSelector()
         {
-            return base.GetAssembly(assemblyString);
+            return new CrmObjectSelector();
         }
+
+        private object CreateNewDsRefBuilder()
+        {
+            return new CrmAdoDsRefBuilder();
+        }
+
+
+
+        private object CreateNewConnectionSupport()
+        {
+            // ok
+            var connSupport = new CrmAdoConnectionSupport();
+            AddDataSourceVersionComparerService(connSupport);
+            AddDataMappedObjectConverterService(connSupport);        
+            return connSupport;
+        }
+
+        private void AddDataMappedObjectConverterService(CrmAdoConnectionSupport connSupport)
+        {
+            var serviceType = typeof(IVsDataMappedObjectConverter);
+            var existingService = connSupport.GetService(serviceType);
+            IVsDataConnection existingSite = null;
+
+            if (existingService != null)
+            {
+                var existingSitable = (DataSiteableObject<IVsDataConnection>)existingService;
+                existingSite = existingSitable.Site;
+            }
+
+            connSupport.RemoveService(serviceType);
+            var newService = CreateNewDataMappedObjectConverter(existingSite);
+
+            connSupport.SiteChanged += (o, e) =>
+            {
+                newService.Site = connSupport.Site;
+            };
+
+            connSupport.AddService(serviceType, newService);
+        }
+
+        private AdoDotNetMappedObjectConverter CreateNewDataMappedObjectConverter(IVsDataConnection site)
+        {
+           // if (site != null)
+            return new AdoDotNetMappedObjectConverter(site);
+        }
+
+        private void AddDataSourceVersionComparerService(CrmAdoConnectionSupport connSupport)
+        {
+            var serviceType = typeof(IVsDataSourceVersionComparer);
+            var existingService = connSupport.GetService(serviceType);
+            IVsDataConnection existingSite = null;
+
+            if (existingService != null)
+            {
+                var existingSitable = (DataSiteableObject<IVsDataConnection>)existingService;
+                existingSite = existingSitable.Site;
+            }
+
+            connSupport.RemoveService(serviceType);
+            var dsVersionComparer = CreateNewDataSourceVersionComparer(existingSite);
+
+            connSupport.SiteChanged += (o, e) =>
+            {
+                dsVersionComparer.Site = connSupport.Site;
+            };
+
+            connSupport.AddService(serviceType, dsVersionComparer);
+        }
+
+        private object CreateNewDataObjectIdentifierResolver(object p)
+        {
+            // ok
+            return new CrmAdoDataObjectIdentifierResolver();
+        }
+
+        private CrmAdoDataSourceVersionComparer CreateNewDataSourceVersionComparer(IVsDataConnection site)
+        {
+            // ok
+            return new CrmAdoDataSourceVersionComparer(site);
+        }
+
+        private object CreateNewDataConnectionEquivalencyComparer(object p)
+        {
+            // ok
+            return new CrmAdoDataConnectionEquivalencyComparer();
+        }
+
+        private object CreateNewDataObjectMemberComparer()
+        {
+            // ok
+            return new CrmAdoDataObjectMemberComparer();
+        }
+
+        private object CreateNewDataSourceInformation()
+        {
+            // ok
+            return new CrmSourceInformation();
+        }
+
+        private object CreateNewDataViewSupport()
+        {
+            // ok
+            return new DataViewSupport(this.GetType().Namespace + ".CrmViewSupport", System.Reflection.Assembly.GetExecutingAssembly());
+        }
+
+        private object CreateNewDataObjectSupport()
+        {
+            // ok
+            var dataObjectSupport = new DataObjectSupport(this.GetType().Namespace + ".CrmObjectSupport", System.Reflection.Assembly.GetExecutingAssembly());
+            return dataObjectSupport;
+        }
+
+        private object CreateNewConnectionProperties()
+        {
+            // ok
+            return new CrmAdoConnectionProperties();
+        }
+
 
     }
 

@@ -17,195 +17,114 @@ using System.Threading.Tasks;
 namespace CrmAdo.DdexProvider
 {
 
-    internal static class AdoDotNetProvider
+    //public class CrmAdoDataMappedObjectConverter : AdoDotNetMappedObjectConverter
+    //{
+
+
+
+    //    protected override System.Data.DbType GetDbTypeFromNativeType(string nativeType)
+    //    {           
+    //        var result = base.GetDbTypeFromNativeType(nativeType);
+    //        return result;
+    //    }
+
+    //    protected override Type GetFrameworkTypeFromNativeType(string nativeType)
+    //    {
+    //        var result = base.GetFrameworkTypeFromNativeType(nativeType);
+    //        return result;
+
+    //    }
+
+    //    protected override int GetProviderTypeFromNativeType(string nativeType)
+    //    {
+    //        var result = base.GetProviderTypeFromNativeType(nativeType);
+    //        return result;
+    //    }
+
+    //    public override bool Equals(object obj)
+    //    {
+    //        var result = base.Equals(obj);
+    //        return result;
+    //    }
+
+    //    protected override object ConvertToMappedMember(string typeName, string mappedMemberName, object[] underlyingValues, object[] parameters)
+    //    {
+    //        var result = base.ConvertToMappedMember(typeName, mappedMemberName, underlyingValues);
+    //        return result;
+    //    }
+
+    //    protected override object ConvertToUnderlyingRestriction(string mappedTypeName, int substitutionValueIndex, object[] mappedRestrictions, object[] parameters)
+    //    {
+    //        var result = base.ConvertToUnderlyingRestriction(mappedTypeName, substitutionValueIndex, mappedRestrictions);
+    //        return result;
+    //    }
+
+
+    //}
+
+    public class CrmAdoObjectIdentifierConverter : AdoDotNetObjectIdentifierConverter
     {
-        public static DbProviderFactory GetProviderFactory(string providerInvariantName)
+        protected override string BuildString(string typeName, string[] identifierParts, Microsoft.VisualStudio.Data.Services.DataObjectIdentifierFormat format)
         {
-            return DbProviderFactories.GetFactory(providerInvariantName);
+            var result = base.BuildString(typeName, identifierParts, format);
+            return result;
         }
 
-        public static void ApplyMappings(DataTable dataTable, IDictionary<string, object> mappings)
+        protected override string FormatPart(string typeName, object identifierPart, Microsoft.VisualStudio.Data.Services.DataObjectIdentifierFormat format)
         {
-            if (dataTable == null)
-            {
-                throw new ArgumentNullException("dataTable");
-            }
-            if (mappings == null)
-            {
-                return;
-            }
-            foreach (KeyValuePair<string, object> mapping in mappings)
-            {
-                DataColumn item = dataTable.Columns[mapping.Key];
-                if (item != null)
-                {
-                    continue;
-                }
-                string value = mapping.Value as string;
-                if (value == null)
-                {
-                    int num = (int)mapping.Value;
-                    if (num >= 0 && num < dataTable.Columns.Count)
-                    {
-                        item = dataTable.Columns[num];
-                    }
-                }
-                else
-                {
-                    item = dataTable.Columns[value];
-                }
-                if (item == null)
-                {
-                    continue;
-                }
-                dataTable.Columns.Add(new DataColumn(mapping.Key, item.DataType, string.Concat("[", item.ColumnName.Replace("]", "]]"), "]")));
-            }
+            var result = base.FormatPart(typeName, identifierPart, format);
+            return result;
         }
 
-        public static T CreateObject<T>(string invariantName)
-        where T : class
+        protected override bool RequiresQuoting(string identifierPart)
         {
-            if (invariantName == null)
-            {
-                throw new DataException("");
-            }
-            DbProviderFactory providerFactory = GetProviderFactory(invariantName);
-            if (providerFactory == null)
-            {
-                string adoDotNetProviderNotRegistered = "";
-                object[] objArray = new object[] { invariantName };
-                throw new DataException(string.Format((IFormatProvider)null, adoDotNetProviderNotRegistered, objArray));
-            }
-            T t = default(T);
-            if (typeof(T) == typeof(DbCommandBuilder))
-            {
-                t = (T)(providerFactory.CreateCommandBuilder() as T);
-            }
-            if (typeof(T) == typeof(DbConnection))
-            {
-                t = (T)(providerFactory.CreateConnection() as T);
-            }
-            if (typeof(T) == typeof(DbConnectionStringBuilder))
-            {
-                t = (T)(providerFactory.CreateConnectionStringBuilder() as T);
-            }
-            if (typeof(T) == typeof(DbParameter))
-            {
-                t = (T)(providerFactory.CreateParameter() as T);
-            }
-            if (t == null)
-            {
-                string adoDotNetProviderObjectNotImplemented = "";
-                object[] objArray1 = new object[] { invariantName, typeof(T).Name };
-                throw new DataException(string.Format((IFormatProvider)null, adoDotNetProviderObjectNotImplemented, objArray1));
-            }
-            return t;
+            var result = base.RequiresQuoting(identifierPart);
+            return result;
         }
+
+        protected override string[] SplitIntoParts(string typeName, string identifier)
+        {
+            var result = base.SplitIntoParts(typeName, identifier);
+            return result;
+        }
+
+        protected override object UnformatPart(string typeName, string identifierPart)
+        {
+            var result = base.UnformatPart(typeName, identifierPart);
+            return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var result = base.Equals(obj);
+            return result;
+        }
+
     }
 
-    /// <summary>Provides an implementation of the <see cref="T:Microsoft.VisualStudio.Data.Services.SupportEntities.IVsDataObjectSelector" /> interface using the ADO.NET <see cref="M:System.Data.Common.DbConnection.GetSchema" /> method.</summary>
-    public class AdoDotNetObjectSelector : DataObjectSelector
+    public class CrmAdoDataObjectMemberComparer : AdoDotNetObjectMemberComparer
     {
-        /// <summary>Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetObjectSelector" /> class.</summary>
-        public AdoDotNetObjectSelector()
+        protected override bool RequiresQuoting(string identifierPart)
         {
+            return base.RequiresQuoting(identifierPart);
+        }
+        public override int Compare(string typeName, object[] identifier, int identifierPart, object value)
+        {
+            var result = base.Compare(typeName, identifier, identifierPart, value);
+            return result;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetObjectSelector" /> class with the data connection object.</summary>
-        /// <param name="connection">An <see cref="T:Microsoft.VisualStudio.Data.Services.IVsDataConnection" /> object representing the communication to the data source.</param>
-        public AdoDotNetObjectSelector(IVsDataConnection connection)
-            : base(connection)
+        public override int Compare(string typeName, string propertyName, object value1, object value2)
         {
+            var result = base.Compare(typeName, propertyName, value1, value2);
+            return result;
         }
-
-        /// <summary>Applies the selector mappings.</summary>
-        /// <param name="dataTable">The schema returned by the call to the <see cref="M:System.Data.Common.DbConnection.GetSchema" /> method.</param>
-        /// <param name="mappings">Key/value pairs containing the selector mappings.</param>
-        /// <exception cref="T:System.ArgumentNullException">The <paramref name="schema" /> parameter is null.</exception>
-        protected static void ApplyMappings(DataTable dataTable, IDictionary<string, object> mappings)
+        public override bool Equals(object obj)
         {
-
-            AdoDotNetProvider.ApplyMappings(dataTable, mappings);
-        }
-
-        /// <summary>Returns a data reader for the data objects retrieved from the object store, which are filtered by the specified restrictions, properties, and parameters.</summary>
-        /// <returns>An <see cref="T:Microsoft.VisualStudio.Data.Services.SupportEntities.IVsDataReader" /> object representing a data reader for the selected data objects.</returns>
-        /// <param name="typeName">The data source–specific name of the specified type to retrieve data objects for.</param>
-        /// <param name="restrictions">The restrictions for filtering the data objects returned.</param>
-        /// <param name="properties">Specifies the property values of the requested data objects. This is not supported in the current version of DDEX.</param>
-        /// <param name="parameters">An array containing the parameters for the specified type.</param>
-        /// <exception cref="T:System.ArgumentNullException">The <paramref name="typeName" /> parameter is null.</exception>
-        /// <exception cref="T:System.ArgumentException">The <paramref name="parameters" /> parameter is not valid. Either it is null, or the number of elements contained in it is not 1 or 2, or the first element is not a string.</exception>
-        /// <exception cref="T:System.InvalidOperationException">The site is null.</exception>
-        /// <exception cref="T:System.NotImplementedException">The provider cannot be obtained.</exception>
-        protected override IVsDataReader SelectObjects(string typeName, object[] restrictions, string[] properties, object[] parameters)
-        {
-            IVsDataReader adoDotNetTableReader;
-            string str;
-            if (typeName == null)
-            {
-                throw new ArgumentNullException("typeName");
-            }
-            if (parameters == null || (int)parameters.Length < 1 || (int)parameters.Length > 2 || !(parameters[0] is string))
-            {
-                throw new ArgumentException();
-            }
-            if (base.Site == null)
-            {
-                throw new InvalidOperationException();
-            }
-            object lockedProviderObject = base.Site.GetLockedProviderObject();
-            if (lockedProviderObject == null)
-            {
-                throw new NotImplementedException();
-            }
-            try
-            {
-                DbConnection dbConnection = lockedProviderObject as DbConnection;
-                if (dbConnection == null)
-                {
-                    throw new NotImplementedException();
-                }
-                string[] strArrays = null;
-                if (restrictions != null)
-                {
-                    strArrays = new string[(int)restrictions.Length];
-                    for (int i = 0; i < (int)strArrays.Length; i++)
-                    {
-                        string[] strArrays1 = strArrays;
-                        int num = i;
-                        if (restrictions[i] != null)
-                        {
-                            str = restrictions[i].ToString();
-                        }
-                        else
-                        {
-                            str = null;
-                        }
-                        strArrays1[num] = str;
-                    }
-                }
-                base.Site.EnsureConnected();
-                DataTable schema = dbConnection.GetSchema(parameters[0].ToString(), strArrays);
-                if ((int)parameters.Length == 2 && parameters[1] is DictionaryEntry)
-                {
-                    object[] value = ((DictionaryEntry)parameters[1]).Value as object[];
-                    if (value != null)
-                    {
-                        AdoDotNetObjectSelector.ApplyMappings(schema, DataObjectSelector.GetMappings(value));
-                    }
-                }
-                adoDotNetTableReader = new AdoDotNetTableReader(schema);
-            }
-            finally
-            {
-                base.Site.UnlockProviderObject();
-            }
-            return adoDotNetTableReader;
+            var result = base.Equals(obj);
+            return result;
         }
     }
-
-
 
     /// <summary>
     /// Represents a custom data object selector to supplement or replace
@@ -224,6 +143,7 @@ namespace CrmAdo.DdexProvider
         public CrmObjectSelector(IVsDataConnection connection)
             : base(connection)
         {
+
 
         }
 
@@ -307,7 +227,7 @@ namespace CrmAdo.DdexProvider
         private string GetCommandText(string typeName, out bool isHandled, object[] restrictions)
         {
             isHandled = false;
-            if (typeName.Equals(CrmObjectTypes.Root, StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrWhiteSpace(typeName) || typeName.Equals(CrmObjectTypes.Root, StringComparison.OrdinalIgnoreCase))
             {
                 isHandled = true;
                 return "SELECT name FROM organization";
@@ -348,4 +268,350 @@ namespace CrmAdo.DdexProvider
 
 
     }
+
+
+    public class CrmAdoDataParameter : AdoDotNetParameter
+    {
+        public CrmAdoDataParameter(DbParameter parameter)
+            : base(parameter)
+        {
+
+        }
+
+        public CrmAdoDataParameter(string providerInvariantName)
+            : base(providerInvariantName)
+        {
+
+        }
+
+        public CrmAdoDataParameter(DbParameter parameter, bool isDerived)
+            : base(parameter, isDerived)
+        {
+
+        }
+
+        public CrmAdoDataParameter(string providerInvariantName, bool isDerived)
+            : base(providerInvariantName, isDerived)
+        {
+
+        }
+
+
+
+
+        protected override int DefaultSize
+        {
+            get
+            {
+                var result = base.DefaultSize;
+                return result;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            var result = base.Equals(obj);
+            return result;
+        }
+
+        protected override DataParameterDirection GetDirectionCore()
+        {
+            var result = base.GetDirectionCore();
+            return result;
+        }
+
+        protected override bool GetIsNullableCore()
+        {
+            var result = base.GetIsNullableCore();
+            return result;
+        }
+
+        protected override bool GetIsOptionalCore()
+        {
+            var result = base.GetIsOptionalCore();
+            return result;
+        }
+
+        protected override string GetNameCore()
+        {
+            var result = base.GetNameCore();
+            return result;
+        }
+
+        protected override int GetSizeCore()
+        {
+            var result = base.GetSizeCore();
+            return result;
+        }
+
+        protected override string GetTypeCore()
+        {
+            var result = base.GetTypeCore();
+            return result;
+        }
+
+        protected override string GetTypeFrom(object value)
+        {
+            var result = base.GetTypeFrom(value);
+            return result;
+        }
+
+        protected override object GetValueCore()
+        {
+            var result = base.GetValueCore();
+            return result;
+        }
+
+        protected override bool HasDescriptor
+        {
+            get
+            {
+                var result = base.HasDescriptor;
+                return result;
+            }
+        }
+
+        protected override bool IsFixedSize
+        {
+            get
+            {
+                var result = base.IsFixedSize;
+                return result;
+            }
+        }
+
+        protected override bool IsSupportedDirection(DataParameterDirection direction)
+        {
+            var result = base.IsSupportedDirection(direction);
+            return result;
+        }
+
+        protected override bool IsValidType(string type)
+        {
+            var result = base.IsValidType(type);
+            return result;
+        }
+
+        public override void Parse(string value)
+        {
+            base.Parse(value);
+        }
+
+        protected override object TryConvertValue(object value, string type)
+        {
+            var result = base.TryConvertValue(value, type);
+            return result;
+        }
+    }
+
+    public class CrmAdoConnectionSupport : AdoDotNetConnectionSupport
+    {
+        protected override void OnStateChanged(DataConnectionStateChangedEventArgs e)
+        {
+            base.OnStateChanged(e);
+        }
+        public override void Initialize(object providerObj)
+        {
+            base.Initialize(providerObj);
+        }
+        protected override string PrepareCore(string command, DataCommandType commandType, IVsDataParameter[] parameters, int commandTimeout)
+        {
+            var result = base.PrepareCore(command, commandType, parameters, commandTimeout);
+            return result;
+        }
+        protected override void OnMessageReceived(DataConnectionMessageReceivedEventArgs e)
+        {
+            base.OnMessageReceived(e);
+        }
+        public override object GetService(Guid serviceGuid)
+        {
+            return base.GetService(serviceGuid);
+        }
+        protected override int ExecuteWithoutResultsCore(string command, DataCommandType commandType, IVsDataParameter[] parameters, int commandTimeout)
+        {
+            var result = base.ExecuteWithoutResultsCore(command, commandType, parameters, commandTimeout);
+            return result;
+        }
+        protected override IVsDataReader ExecuteCore(string command, DataCommandType commandType, IVsDataParameter[] parameters, int commandTimeout)
+        {
+            var result = base.ExecuteCore(command, commandType, parameters, commandTimeout);
+            return result;
+        }
+        protected override IVsDataParameter[] DeriveParametersCore(string command, DataCommandType commandType, int commandTimeout)
+        {
+            var result = base.DeriveParametersCore(command, commandType, commandTimeout);
+            return result;
+        }
+        protected override object CreateService(System.ComponentModel.Design.IServiceContainer container, Type serviceType)
+        {
+            var result = base.CreateService(container, serviceType);
+            return result;
+        }
+        protected override IVsDataParameter CreateParameterFrom(DbParameter parameter)
+        {
+            var result = base.CreateParameterFrom(parameter);
+            return result;
+        }
+        protected override IVsDataParameter CreateParameterCore()
+        {
+            var result = base.CreateParameterCore();
+            return result;
+        }
+
+        public override void AddService(Type serviceType, System.ComponentModel.Design.ServiceCreatorCallback callback, bool promote)
+        {
+            base.AddService(serviceType, callback, promote);
+        }
+        public override void AddService(Type serviceType, object serviceInstance, bool promote)
+        {
+            base.AddService(serviceType, serviceInstance, promote);
+        }
+        protected override void DeriveParametersOn(DbCommand command)
+        {
+            base.DeriveParametersOn(command);
+        }
+        protected override IVsDataReader DeriveSchemaCore(string command, DataCommandType commandType, IVsDataParameter[] parameters, int commandTimeout)
+        {
+            var result = base.DeriveSchemaCore(command, commandType, parameters, commandTimeout);
+            return result;
+        }
+
+        protected override DbCommand GetCommand(string command, DataCommandType commandType, IVsDataParameter[] parameters, int commandTimeout)
+        {
+            var result = base.GetCommand(command, commandType, parameters, commandTimeout);
+            return result;
+        }
+
+    }
+
+    public class CrmAdoDsRefBuilder : DSRefBuilder
+    {
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+        protected override void AppendToDSRef(object dsRef, string typeName, object[] identifier, object[] parameters)
+        {
+            base.AppendToDSRef(dsRef, typeName, identifier, parameters);
+            return;
+        }
+
+    }
+
+
+    public class CrmAdoDataSourceVersionNumberComparer : IComparer<string>
+    {
+        public int Compare(string x, string y)
+        {
+            return x.CompareTo(y);
+        }
+    }
+
+    public class CrmAdoDataSourceVersionComparer : DataSiteableObject<Microsoft.VisualStudio.Data.Services.IVsDataConnection>, IVsDataSourceVersionComparer, IComparable<string>
+    {
+        private bool _HasSourceVersion = false;
+
+        public CrmAdoDataSourceVersionComparer()
+            : this(null)
+        {
+        }
+
+        public CrmAdoDataSourceVersionComparer(IVsDataConnection site)
+            : this(site, new CrmAdoDataSourceVersionNumberComparer())
+        {
+        }
+
+        public CrmAdoDataSourceVersionComparer(IVsDataConnection site, IComparer<string> comparer)
+            : base(site)
+        {
+            Comparer = comparer;
+        }
+
+        protected IComparer<string> Comparer { get; set; }
+
+        private string _SourceVersion = string.Empty;
+        public string SourceVersion
+        {
+            get
+            {
+                if (!this._HasSourceVersion && base.Site != null)
+                {
+                    IVsDataSourceInformation service = base.Site.GetService(typeof(IVsDataSourceInformation)) as IVsDataSourceInformation;
+                    if (service != null)
+                    {
+                        this._SourceVersion = service["DataSourceVersion"] as string;
+                    }
+                    this._HasSourceVersion = true;
+                }
+                return this._SourceVersion;
+
+            }
+            set
+            {
+                _SourceVersion = value;
+            }
+        }
+
+        public int CompareTo(string other)
+        {
+            if (this.SourceVersion == null)
+            {
+                return 0;
+            }
+            var result = Comparer.Compare(this.SourceVersion, other);
+
+            return result;
+        }
+
+    }
+
+    public class CrmAdoConnectionProperties : AdoDotNetConnectionProperties
+    {
+        public override string ToDisplayString()
+        {
+            var result = base.ToDisplayString();
+            return result;
+        }
+
+        public override string ToSafeString()
+        {
+            var result = base.ToSafeString();
+            return result;
+        }
+    }
+
+
+    public class CrmAdoDataConnectionEquivalencyComparer : DataConnectionEquivalencyComparer
+    {
+        protected override bool AreEquivalent(IVsDataConnectionProperties connectionProperties1, IVsDataConnectionProperties connectionProperties2)
+        {
+            var result = base.AreEquivalent(connectionProperties1, connectionProperties2);
+            return result;
+        }
+    }
+
+    public class CrmAdoDataObjectIdentifierResolver : DataObjectIdentifierResolver
+    {
+        public override object[] ContractIdentifier(string typeName, object[] fullIdentifier)
+        {
+            var result = base.ContractIdentifier(typeName, fullIdentifier);
+            return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var result = base.Equals(obj);
+            return result;
+        }
+
+        public override object[] ExpandIdentifier(string typeName, object[] partialIdentifier)
+        {
+            return partialIdentifier;
+        }
+    }
+
+
+
+
 }

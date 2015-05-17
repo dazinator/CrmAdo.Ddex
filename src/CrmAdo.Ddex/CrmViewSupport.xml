@@ -146,22 +146,226 @@
 
   <Define name="EntityProperties">
     <Properties>
-      <!--<Property name="Catalog">
-        <DisplayName resource="EntityProperty_Catalog_DisplayName" />
-        <Description resource="EntityProperty_Calalog_Description" />
-      </Property>
-      <Property name="Schema">
-        <DisplayName resource="EntityProperty_Schema_DisplayName" />
-        <Description resource="EntityProperty_Schema_Description" />
-      </Property>-->
-      <Property name="Name">
-        <DisplayName resource="EntityProperty_Name_DisplayName" />
+
+      <Property name="table_name">
+        <DisplayName resource="EntityProperty_Name_DisplayName"></DisplayName>
         <Description resource="EntityProperty_Name_Description" />
+        <!--<Category>Table</Category>-->       
       </Property>
-      <!--<Property name="Type">
-        <DisplayName resource="EntityProperty_Type_DisplayName" />
+
+      <Property name="table_catalog">
+        <DisplayName resource="EntityProperty_Catalog_DisplayName"></DisplayName>
+        <Description resource="EntityProperty_Catalog_Description" />
+        <!--<Category>Table</Category>-->
+      </Property>
+
+      <Property name="table_schema">
+        <DisplayName resource="EntityProperty_Schema_DisplayName"></DisplayName>
+        <Description resource="EntityProperty_Schema_Description" />
+        <!--<Category>Table</Category>-->
+      </Property>
+
+      <Property name="table_type">
+        <DisplayName resource="EntityProperty_Type_DisplayName"></DisplayName>
         <Description resource="EntityProperty_Type_Description" />
-      </Property>-->
+        <!--<Category>Table</Category>-->
+      </Property>
+
+
+      <Property name="MetadataId">      
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="ActivityTypeMask">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="AutoCreateAccessTeams">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="AutoRouteToOwnerQueue">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="CanBeInManyToMany">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="CanBePrimaryEntityInRelationship">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="CanBeRelatedEntityInRelationship">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="CanCreateAttributes">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="CanCreateCharts">
+        <Category>Additional Info</Category>
+      </Property>
+
+
+      <Property name="CanCreateForms">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="CanCreateViews">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="CanModifyAdditionalSettings">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="CanTriggerWorkflow">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="Description">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="DisplayCollectionName">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="DisplayName">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="HasChanged">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IconLargeName">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IconMediumName">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IconSmallName">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IntroducedVersion">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsActivity">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsActivityParty">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsAIRUpdated">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsAuditEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsAvailableOffline">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsBusinessProcessEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsChildEntity">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsConnectionsEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsCustomEntity">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsCustomizable">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsDocumentManagementEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsDuplicateDetectionEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsEnabledForCharts">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsEnabledForTrace">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsImportable">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsIntersect">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsMailMergeEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsManaged">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsMappable">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsQuickCreateEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsReadingPaneEnabled">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsReadOnlyInMobileClient">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsRenameable">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsValidForAdvancedFind">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsValidForQueue">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="IsVisibleInMobile">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="IsVisibleInMobileClient">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="ObjectTypeCode">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="OwnershipType">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="PrimaryIdAttribute">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="PrimaryImageAttribute">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="PrimaryNameAttribute">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="RecurrenceBaseEntityLogicalName">
+        <Category>Additional Info</Category>
+      </Property>
+
+      <Property name="ReportViewName">
+        <Category>Additional Info</Category>
+      </Property>
+      <Property name="SchemaName">
+        <Category>Additional Info</Category>
+      </Property>
+
+
     </Properties>
   </Define>
 

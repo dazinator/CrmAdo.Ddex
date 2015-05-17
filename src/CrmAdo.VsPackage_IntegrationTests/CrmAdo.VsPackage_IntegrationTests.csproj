@@ -177,12 +177,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrmAdo.Ddex\CrmAdo.DdexProvider.csproj">
-      <Project>{9024366D-45C9-47BA-8D20-F88975A7ED7C}</Project>
-      <Name>CrmAdo.DdexProvider</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="bin\Debug\CrmAdo.DdexProvider.dll" />
     <Content Include="bin\Debug\CrmAdo.DdexProvider.pdb" />
     <Content Include="bin\Debug\CrmAdo.VsPackage_IntegrationTests.dll" />
@@ -222,6 +216,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\InstallationRelease\Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrmAdo.Ddex\CrmAdo.DdexProvider.csproj">
+      <Project>{9024366d-45c9-47ba-8d20-f88975a7ed7c}</Project>
+      <Name>CrmAdo.DdexProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

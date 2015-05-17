@@ -319,7 +319,7 @@
     <value>Attributes</value>
   </data>
   <data name="Node_InitialDisplayName" xml:space="preserve">
-    <value>CrmAdo - {Root.Database}</value>
+    <value>CrmAdo - {Root.Name}</value>
   </data>
   <data name="Provider_Description" xml:space="preserve">
     <value>This is a the CrmAdo DDEX provider that connects to instances of Dynamics Crm.</value>

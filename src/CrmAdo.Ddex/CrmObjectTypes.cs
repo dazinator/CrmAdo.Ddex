@@ -12,7 +12,7 @@ namespace CrmAdo.DdexProvider
     /// </summary>
     public static class CrmObjectTypes
     {
-        public const string Root = "";
+        public const string Root = "Root";
         public const string User = "Users";
         public const string CrmTable = "Tables";
         public const string CrmColumn = "Columns";

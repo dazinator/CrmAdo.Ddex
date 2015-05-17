@@ -75,12 +75,16 @@
 
     <RootType>
       <Properties>
-        <Property name="Url" type="System.String"/>
-        <Property name="Database" type="System.String"/>
+        <Property name="Name" type="System.String"/>
+        <!--<Property name="Database" type="System.String"/>-->
       </Properties>
       <Services>
         <!--<Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector" />-->
-        <Service type="IVsDataObjectSelector" implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetRootObjectSelector" />
+        <Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector">
+          <Parameters method="SelectObjects">
+            <Parameter value="Root" />
+          </Parameters>
+        </Service>
       </Services>
     </RootType>
 
@@ -189,7 +193,7 @@
       <Services>
         <Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector">
           <Parameters method="SelectObjects">
-            <Parameter value="Columns" />          
+            <Parameter value="Columns" />
           </Parameters>
         </Service>
         <Service type="IDSRefBuilder">
@@ -234,6 +238,7 @@
       <Services>
         <Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector">
           <Parameters method="SelectObjects">
+            <Parameter value="PluginAssembly" />
             <!--<Parameter value="Column" />-->
           </Parameters>
         </Service>
@@ -256,7 +261,7 @@
             <Calculate expr="'USER'" exprType="System.String" />
           </Conversion>
         </Property>
-       
+
         <!--<Property name="Type" underlyingMember="LogicalName">
           <Conversion>
             <Calculate expr="IIF({0} = {0}, 'BASE TABLE', 'VIEW')" exprType="System.String" />
@@ -305,7 +310,7 @@
     </MappedType>-->
 
     <MappedType name="TableColumn" underlyingType="Columns">
-      <Selection restrictions="{Table},{Column}" />
+      <Selection restrictions="{Table},{Name}" />
       <Identifier>
         <Part name="Table" underlyingMember="table_name" />
         <Part name="Name" underlyingMember="column_name" />
@@ -367,9 +372,9 @@
           </Conversion>-->
         </Property>
         <Property name="DefaultValue" underlyingMember="column_default" />
-        <!--<Property name="UserDataType" underlyingMember="DataType" />-->       
-        
-     
+        <!--<Property name="UserDataType" underlyingMember="DataType" />-->
+
+
         <!--<Property name="IsNullable" />
         <Property name="DefaultValue" />-->
         <!--<Property name="DataType" />-->
