@@ -50,7 +50,7 @@ namespace CrmAdo.DdexProvider
                 {
                     try
                     {
-                        return "";
+                        return "dbo";
                     }
                     catch (DbException)
                     {

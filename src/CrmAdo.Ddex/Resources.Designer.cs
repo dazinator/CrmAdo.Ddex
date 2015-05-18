@@ -799,6 +799,24 @@ namespace CrmAdo.DdexProvider {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {FullName}.
+        /// </summary>
+        internal static string Node_User {
+            get {
+                return ResourceManager.GetString("Node_User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        internal static string Node_Users {
+            get {
+                return ResourceManager.GetString("Node_Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This is a the CrmAdo DDEX provider that connects to instances of Dynamics Crm..
         /// </summary>
         internal static string Provider_Description {
@@ -822,6 +840,96 @@ namespace CrmAdo.DdexProvider {
         internal static string Provider_ShortDisplayName {
             get {
                 return ResourceManager.GetString("Provider_ShortDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The date the user was created..
+        /// </summary>
+        internal static string UserProperty_CreatedOn_Description {
+            get {
+                return ResourceManager.GetString("UserProperty_CreatedOn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created On.
+        /// </summary>
+        internal static string UserProperty_CreatedOn_DisplayName {
+            get {
+                return ResourceManager.GetString("UserProperty_CreatedOn_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user&apos;s domain name..
+        /// </summary>
+        internal static string UserProperty_DomainName_Description {
+            get {
+                return ResourceManager.GetString("UserProperty_DomainName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Domain Name.
+        /// </summary>
+        internal static string UserProperty_DomainName_DisplayName {
+            get {
+                return ResourceManager.GetString("UserProperty_DomainName_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full name of the user..
+        /// </summary>
+        internal static string UserProperty_FullName_Description {
+            get {
+                return ResourceManager.GetString("UserProperty_FullName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full Name.
+        /// </summary>
+        internal static string UserProperty_FullName_DisplayName {
+            get {
+                return ResourceManager.GetString("UserProperty_FullName_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The date the user was last modified..
+        /// </summary>
+        internal static string UserProperty_ModifiedOn_Description {
+            get {
+                return ResourceManager.GetString("UserProperty_ModifiedOn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified On.
+        /// </summary>
+        internal static string UserProperty_ModifiedOn_DisplayName {
+            get {
+                return ResourceManager.GetString("UserProperty_ModifiedOn_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The unique id of the user..
+        /// </summary>
+        internal static string UserProperty_SystemUserId_Description {
+            get {
+                return ResourceManager.GetString("UserProperty_SystemUserId_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System User Id.
+        /// </summary>
+        internal static string UserProperty_SystemUserId_DisplayName {
+            get {
+                return ResourceManager.GetString("UserProperty_SystemUserId_DisplayName", resourceCulture);
             }
         }
     }

@@ -372,4 +372,40 @@
   <data name="EntityProperty_Type_DisplayName" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="Node_Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Node_User" xml:space="preserve">
+    <value>{FullName}</value>
+  </data>
+  <data name="UserProperty_CreatedOn_Description" xml:space="preserve">
+    <value>The date the user was created.</value>
+  </data>
+  <data name="UserProperty_CreatedOn_DisplayName" xml:space="preserve">
+    <value>Created On</value>
+  </data>
+  <data name="UserProperty_DomainName_Description" xml:space="preserve">
+    <value>The user's domain name.</value>
+  </data>
+  <data name="UserProperty_DomainName_DisplayName" xml:space="preserve">
+    <value>Domain Name</value>
+  </data>
+  <data name="UserProperty_FullName_Description" xml:space="preserve">
+    <value>The full name of the user.</value>
+  </data>
+  <data name="UserProperty_FullName_DisplayName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="UserProperty_ModifiedOn_Description" xml:space="preserve">
+    <value>The date the user was last modified.</value>
+  </data>
+  <data name="UserProperty_ModifiedOn_DisplayName" xml:space="preserve">
+    <value>Modified On</value>
+  </data>
+  <data name="UserProperty_SystemUserId_Description" xml:space="preserve">
+    <value>The unique id of the user.</value>
+  </data>
+  <data name="UserProperty_SystemUserId_DisplayName" xml:space="preserve">
+    <value>System User Id</value>
+  </data>
 </root>

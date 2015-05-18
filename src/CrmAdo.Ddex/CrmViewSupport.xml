@@ -150,7 +150,7 @@
       <Property name="table_name">
         <DisplayName resource="EntityProperty_Name_DisplayName"></DisplayName>
         <Description resource="EntityProperty_Name_Description" />
-        <!--<Category>Table</Category>-->       
+        <!--<Category>Table</Category>-->
       </Property>
 
       <Property name="table_catalog">
@@ -172,7 +172,7 @@
       </Property>
 
 
-      <Property name="MetadataId">      
+      <Property name="MetadataId">
         <Category>Additional Info</Category>
       </Property>
 
@@ -369,6 +369,31 @@
     </Properties>
   </Define>
 
+  <Define name="UserProperties">
+    <Properties>
+      <Property name="FullName">
+        <DisplayName resource="UserProperty_FullName_DisplayName"></DisplayName>
+        <Description resource="UserProperty_FullName_Description" />      
+      </Property>
+      <Property name="DomainName">
+        <DisplayName resource="UserProperty_DomainName_DisplayName"></DisplayName>
+        <Description resource="UserProperty_DomainName_Description" />      
+      </Property>
+      <Property name="SystemUserId">
+        <DisplayName resource="UserProperty_SystemUserId_DisplayName"></DisplayName>
+        <Description resource="UserProperty_SystemUserId_Description" />      
+      </Property>
+      <Property name="CreatedOn">
+        <DisplayName resource="UserProperty_CreatedOn_DisplayName"></DisplayName>
+        <Description resource="UserProperty_CreatedOn_Description" />       
+      </Property>
+      <Property name="ModifiedOn">
+        <DisplayName resource="UserProperty_ModifiedOn_DisplayName"></DisplayName>
+        <Description resource="UserProperty_ModifiedOn_Description" />       
+      </Property>    
+    </Properties>
+  </Define>
+
   <Views>
     <View name="Dynamics Crm">
       <DisplayName>CrmAdo Dynamics Crm</DisplayName>
@@ -446,6 +471,18 @@
               <Selection type="PluginAssembly" >
                 <SelectionNode nodeId="PluginAssembly">
                   <DisplayName resource="Node_PluginAssembly" />
+                  <Icon name="Default"/>
+                </SelectionNode>
+              </Selection>
+            </Children>
+          </StaticNode>
+
+          <StaticNode>
+            <DisplayName resource="Node_Users" />
+            <Children>
+              <Selection type="User">
+                <SelectionNode nodeId="User">
+                  <DisplayName resource="Node_User" />
                   <Icon name="Default"/>
                 </SelectionNode>
               </Selection>

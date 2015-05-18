@@ -88,6 +88,30 @@
       </Services>
     </RootType>
 
+    <Type name="User" preferredOrdering="FullName">
+      <!--
+				The identifier for a type defines the information required to uniquely
+				identify instances of the type.  In this case only a name is needed.
+			-->
+      <Identifier>
+        <Part name="FullName" />
+      </Identifier>
+      <Properties>        
+        <Property name="SystemUserId" />
+        <Property name="FullName" isIdentifierPart="true" />
+        <Property name="DomainName" />
+        <Property name="CreatedOn" type="System.DateTime" />
+        <Property name="ModifiedOn" type="System.DateTime" />
+      </Properties>
+      <Services>     
+        <Service type="IVsDataObjectSelector" implementationType="CrmAdo.DdexProvider.CrmObjectSelector">        
+          <Parameters method="SelectObjects">
+            <Parameter value="Users" />           
+          </Parameters>
+        </Service>
+      </Services>
+    </Type>
+
     <Type name="Tables" nameProperty="table_name">
       <Identifier>
         <Part name="table_name" />
