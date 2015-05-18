@@ -187,7 +187,7 @@
           </Parameters>
         </Service>
 
-        <Service type="IDSRefBuilder">
+        <Service type="IDSRefBuilder" implementationType="CrmAdo.DdexProvider.CrmAdoDsRefBuilder">
           <Parameters method="AppendToDSRef">
             <Parameter>
               <Parameter value="{0}" />
@@ -220,7 +220,7 @@
             <Parameter value="Columns" />
           </Parameters>
         </Service>
-        <Service type="IDSRefBuilder">
+        <Service type="IDSRefBuilder" implementationType="CrmAdo.DdexProvider.CrmAdoDsRefBuilder">
           <Parameters method="AppendToDSRef">
             <Parameter>
               <Parameter value="{0}" />
