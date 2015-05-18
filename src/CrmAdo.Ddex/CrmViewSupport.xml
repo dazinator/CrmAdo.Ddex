@@ -431,8 +431,8 @@
                         <Selection type="Columns" restrictions="{Table.table_name}">
                           <SelectionNode>
                             <DisplayName resource="Node_EntityAttribute"/>
-                            <Icon name="PrimaryKey" when ="{IsPrimaryKey} = true"/>
-                            <Icon name="Column" when ="{IsPrimaryKey} = false"/>
+                            <Icon name="PrimaryKey" when ="{IsPrimaryKey} = 'true'"/>
+                            <Icon name="Column" when ="{IsPrimaryKey} = 'false'"/>
                             <PropertiesRef name="AttributeProperties"/>
                           </SelectionNode>
                         </Selection>

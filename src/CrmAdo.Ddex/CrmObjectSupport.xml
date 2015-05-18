@@ -10,7 +10,7 @@
     <Property name="table_schema" />
     <Property name="ordinal_position" type="System.Int32" />
     <Property name="column_default" />
-    <Property name="is_nullable" />
+    <Property name="is_nullable" type="System.Boolean" />
     <Property name="data_type" />
     <Property name="character_maximum_length" type="System.Int32" />
     <Property name="character_octet_length" type="System.Int32" />
@@ -342,7 +342,12 @@
       <Properties>
         <!--<Property name="IsPrimaryKey" />-->
         <Property name="Name" isIdentifierPart="true" />
-        <Property name="Ordinal" underlyingMember="ordinal_position" />
+        <Property name="Ordinal" underlyingMember="ordinal_position">
+          <Conversion>
+            <ChangeType type="System.Int32" />
+          </Conversion>          
+        </Property>
+        <Property name="UserDataType" underlyingMember="data_type" />
         <Property name="NativeDataType" underlyingMember="data_type" />
         <Property name="AdoDotNetDataType" underlyingMember="data_type">
           <!--
@@ -359,7 +364,7 @@
 						for sample purposes.
 					-->
           <Conversion>
-            <CallMapper implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetMappedObjectConverter" />
+            <CallMapper implementationType="CrmAdo.DdexProvider.AdoDotNetMappedObjectConverter" />
           </Conversion>
         </Property>
         <Property name="AdoDotNetDbType" underlyingMember="data_type">
@@ -372,7 +377,7 @@
 						DataTypes schema collection.
 					-->
           <Conversion>
-            <CallMapper />
+            <CallMapper implementationType="CrmAdo.DdexProvider.AdoDotNetMappedObjectConverter" />
           </Conversion>
         </Property>
         <Property name="FrameworkDataType" underlyingMember="data_type">
@@ -384,7 +389,7 @@
 						DataTypes schema collection.
 					-->
           <Conversion>
-            <CallMapper />
+            <CallMapper implementationType="CrmAdo.DdexProvider.AdoDotNetMappedObjectConverter" />
           </Conversion>
         </Property>
         <Property name="Length" underlyingMember="character_maximum_length" />
