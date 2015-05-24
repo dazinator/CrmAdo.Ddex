@@ -471,7 +471,7 @@
               <Selection type="PluginAssembly" >
                 <SelectionNode nodeId="PluginAssembly">
                   <DisplayName resource="Node_PluginAssembly" />
-                  <Icon name="Default"/>
+                  <Icon name="Component"/>
                 </SelectionNode>
               </Selection>
             </Children>
