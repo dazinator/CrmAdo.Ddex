@@ -13,6 +13,7 @@ using System.Diagnostics;
 using Microsoft.VisualStudio.Data.Services;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
+using CrmAdo.DdexProvider.SupportEntities;
 
 namespace CrmAdo.DdexProvider
 {

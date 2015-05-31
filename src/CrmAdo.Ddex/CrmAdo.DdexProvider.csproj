@@ -202,10 +202,21 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CrmAdoDataObjectMemberComparer.cs" />
+    <Compile Include="SupportEntities\CrmAdoConnectionProperties.cs" />
+    <Compile Include="SupportEntities\CrmAdoConnectionSupport.cs" />
+    <Compile Include="SupportEntities\CrmAdoDataConnectionEquivalencyComparer.cs" />
+    <Compile Include="SupportEntities\CrmAdoDataMappedObjectConverter.cs" />
+    <Compile Include="SupportEntities\CrmAdoDataObjectIdentifierResolver.cs" />
+    <Compile Include="SupportEntities\CrmAdoDataObjectMemberComparer.cs" />
+    <Compile Include="SupportEntities\CrmAdoDataParameter.cs" />
     <Compile Include="CrmAdoDataProviderRegistration.cs" />
     <Compile Include="CrmAdoProviderObjectFactory.cs" />
-    <Compile Include="CrmAdoRootObjectSelector.cs" />
+    <Compile Include="SupportEntities\CrmAdoDataSourceVersionComparer.cs" />
+    <Compile Include="SupportEntities\CrmAdoDataSourceVersionNumberComparer.cs" />
+    <Compile Include="SupportEntities\CrmAdoDsRefBuilder.cs" />
+    <Compile Include="SupportEntities\CrmAdoObjectIdentifierConverter.cs" />
+    <Compile Include="SupportEntities\CrmAdoRootObjectSelector.cs" />
+    <Compile Include="SupportEntities\CrmAdoVsCommand.cs" />
     <Compile Include="CrmObjectSelector.cs" />
     <Compile Include="CrmObjectTypes.cs" />
     <Compile Include="CrmSourceInformation.cs" />

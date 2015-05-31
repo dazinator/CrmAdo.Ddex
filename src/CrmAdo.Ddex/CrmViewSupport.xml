@@ -415,7 +415,7 @@
               <Command guid="501822E1-B5AF-11d0-B4DC-00A0C91506EF" cmdid="13608" provider="884DD964-5327-461f-9F06-6484DD540F8F" />
             </Commands>
             <Children>
-              <Selection type="Tables">
+              <Selection type="Tables" restrictions="{Root.Name}">
                 <SelectionNode nodeId="Table">
                   <DisplayName resource="Node_Entity" />
                   <Icon name="Table"  />
@@ -428,7 +428,7 @@
                       <DisplayName resource="Node_EntityAttributes" />
                       <Icon name="Folder" />
                       <Children>
-                        <Selection type="Columns" restrictions="{Table.table_name}">
+                        <Selection type="Columns" restrictions="{Table.table_catalog},{Table.table_schema},{Table.table_name}">
                           <SelectionNode>
                             <DisplayName resource="Node_EntityAttribute"/>
                             <Icon name="PrimaryKey" when ="{IsPrimaryKey} = 'true'"/>

@@ -22,6 +22,26 @@ namespace CrmAdo.DdexProvider
         public CrmSourceInformation()
         {
             AddProperty(DefaultSchema);
+            AddProperty(CatalogSeparator, ".");
+            AddProperty(CatalogSupported, true);
+            AddProperty(CatalogSupportedInDml, true);
+            AddProperty(CrmSourceInformation.ColumnAliasSupported, false);
+            AddProperty(CrmSourceInformation.ColumnSupported, true);
+            AddProperty(CrmSourceInformation.IdentifierCloseQuote, "]");
+            AddProperty(CrmSourceInformation.IdentifierOpenQuote, "[");
+            AddProperty(CrmSourceInformation.LikeClausePercent, "%");
+            AddProperty(CrmSourceInformation.ParameterPrefix, "@");
+
+            AddProperty(CrmSourceInformation.SchemaSeparator, ".");
+            AddProperty(CrmSourceInformation.SchemaSupported, true);
+            AddProperty(CrmSourceInformation.SchemaSupportedInDml, true);
+            AddProperty(CrmSourceInformation.ServerSeparator, ".");
+            AddProperty(CrmSourceInformation.SupportsQuotedIdentifierParts, true);
+            AddProperty(CrmSourceInformation.SupportsVerifySql, true);
+            AddProperty(CrmSourceInformation.TableAliasSupported, true);
+            AddProperty(CrmSourceInformation.TableSupported, true);
+            AddProperty(CrmSourceInformation.UserSupported, true);
+            AddProperty(CrmSourceInformation.ViewSupported, true);
         }
 
         #endregion
@@ -36,7 +56,7 @@ namespace CrmAdo.DdexProvider
         /// is executed.
         /// </summary>
         protected override object RetrieveValue(string propertyName)
-        {          
+        {
 
             if (propertyName.Equals("DefaultSchema", StringComparison.OrdinalIgnoreCase))
             {
@@ -58,10 +78,30 @@ namespace CrmAdo.DdexProvider
                     }
                 }
             }
+            else if (propertyName.Equals(CrmSourceInformation.DefaultCatalog, StringComparison.OrdinalIgnoreCase))
+            {
+                if (Site.State != DataConnectionState.Open)
+                {
+                    Site.Open();
+                }
+                CrmDbConnection conn = (CrmDbConnection)Connection;
+                Debug.Assert(conn != null, "Invalid provider object.");
+                if (conn != null)
+                {
+                    try
+                    {
+                        return conn.ConnectionInfo.OrganisationName;
+                    }
+                    catch (DbException)
+                    {
+                        // We let the base class apply default behavior
+                    }
+                }
+            }
 
             var val = base.RetrieveValue(propertyName);
             return val;
-          
+
         }
 
         #endregion

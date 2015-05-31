@@ -47,18 +47,18 @@ namespace CrmAdo.DdexProvider
                 supportedObjectsKey.CreateSubkey(typeof(IDSRefBuilder).Name);
 
                 dataSourceInfoKey = supportedObjectsKey.CreateSubkey(typeof(IVsDataSourceInformation).Name);
-                ////dataSourceInfoKey.SetValue("IdentifierOpenQuote", "[");
-                ////dataSourceInfoKey.SetValue("IdentifierCloseQuote", "]");
-                ////dataSourceInfoKey.SetValue("ParameterPrefix", "@");
+                dataSourceInfoKey.SetValue("IdentifierOpenQuote", "[");
+                dataSourceInfoKey.SetValue("IdentifierCloseQuote", "]");
+                dataSourceInfoKey.SetValue("ParameterPrefix", "@");
                 ////dataSourceInfoKey.SetValue("ParameterPrefixInName", "True");
-                ////dataSourceInfoKey.SetValue("SchemaSeperator", "True");
-                ////dataSourceInfoKey.SetValue("SchemaSupported", "True");
-                ////dataSourceInfoKey.SetValue("SchemaSupportedInDml", "True");
-                ////dataSourceInfoKey.SetValue("ServerSeparator", ".");
+                dataSourceInfoKey.SetValue("SchemaSeperator", "True");
+                dataSourceInfoKey.SetValue("SchemaSupported", "True");
+                dataSourceInfoKey.SetValue("SchemaSupportedInDml", "True");
+                dataSourceInfoKey.SetValue("ServerSeparator", ".");
                 ////dataSourceInfoKey.SetValue("SupportsAnsi92Sql", "True");
-                ////dataSourceInfoKey.SetValue("SupportsQuotedIdentifierParts", "True");
+                dataSourceInfoKey.SetValue("SupportsQuotedIdentifierParts", "True");
                 //  dataSourceInfoKey.SetValue("CatalogSupportedInDml", "True");            
-                //  dataSourceInfoKey.SetValue("CatalogSupported", true);
+                dataSourceInfoKey.SetValue("CatalogSupported", true);
                 dataSourceKey = context.CreateKey(@"DataSources\{" + GuidList.guidCrmAdo_DdexProviderDataSourceString + @"}");
                 dataSourceKey.SetValue(null, "Dynamics CRM (CrmAdo)");
                 dataSourceKey.SetValue("DefaultProvider", "{" + GuidList.guidCrmAdo_DdexProviderDataProviderString + "}");
