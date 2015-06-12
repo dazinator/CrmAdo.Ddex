@@ -629,7 +629,7 @@
       <Services>
         <Service type="IVsDataObjectSelector" implementationType="Microsoft.VisualStudio.Data.Framework.AdoDotNet.AdoDotNetObjectSelector">
           <Parameters method="SelectObjects">
-            <Parameter value="Columns" />
+            <Parameter value="ViewColumns" />
           </Parameters>
         </Service>
         <Service type="IDSRefBuilder" implementationType="Microsoft.VisualStudio.Data.Framework.DSRefBuilder">
