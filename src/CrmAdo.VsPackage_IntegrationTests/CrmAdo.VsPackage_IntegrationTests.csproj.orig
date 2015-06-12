@@ -40,8 +40,13 @@
     <Reference Include="AntiXSSLibrary">
       <HintPath>..\..\lib\Microsoft.CrmSdk.Extensions.6.0.4\lib\net40\AntiXSSLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="CrmAdo">
-      <HintPath>..\..\lib\CrmAdo.1.3.4\lib\net45\CrmAdo.dll</HintPath>
+    <Reference Include="CrmAdo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ba966c247ee8fd34, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+<<<<<<< Updated upstream
+      <HintPath>..\..\lib\CrmAdo.1.3.3\lib\net45\CrmAdo.dll</HintPath>
+=======
+      <HintPath>..\..\lib\CrmAdo.1.3.2\lib\net45\CrmAdo.dll</HintPath>
+>>>>>>> Stashed changes
     </Reference>
     <Reference Include="envdte" />
     <Reference Include="envdte80" />
@@ -124,6 +129,13 @@
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\lib\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
+<<<<<<< Updated upstream
+=======
+    <Reference Include="SQLGeneration, Version=2.6.2.0, Culture=neutral, PublicKeyToken=22ea15b5a3c0e6aa, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SQLGeneration.DazinatorFork.2.6.2\lib\net40\SQLGeneration.dll</HintPath>
+    </Reference>
+>>>>>>> Stashed changes
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -176,6 +188,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CrmAdo.Ddex\CrmAdo.DdexProvider.csproj">
+      <Project>{9024366D-45C9-47BA-8D20-F88975A7ED7C}</Project>
+      <Name>CrmAdo.DdexProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="bin\Debug\CrmAdo.DdexProvider.dll" />
     <Content Include="bin\Debug\CrmAdo.DdexProvider.pdb" />
     <Content Include="bin\Debug\CrmAdo.VsPackage_IntegrationTests.dll" />
@@ -215,12 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\InstallationRelease\Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CrmAdo.Ddex\CrmAdo.DdexProvider.csproj">
-      <Project>{9024366d-45c9-47ba-8d20-f88975a7ed7c}</Project>
-      <Name>CrmAdo.DdexProvider</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
