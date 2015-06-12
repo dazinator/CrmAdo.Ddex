@@ -900,7 +900,7 @@
       </Properties>
     </MappedType>
 
-    <MappedType name="ViewColumn" underlyingType="Columns">
+    <MappedType name="ViewColumn" underlyingType="ViewColumns">
       <Selection restrictions="{Catalog},{Schema},{View},{Name}" />
       <Identifier>
         <Part name="Catalog" underlyingMember="table_catalog" />
